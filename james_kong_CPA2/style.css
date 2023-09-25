@@ -1,21 +1,128 @@
-body {
+/* Set the background color of the entire page to light blue
+   and specify a font stack for text content */
+   body {
     background-color: lightblue;
-    margin-left:20%; 
-    margin-right:20%;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-th, td {
-    padding: 15px;
-    border: 1px solid
+/* Style the header section with a white background, a gray border,
+   padding, and center-align its contents */
+header {
+    background-color: white;
+    border: 2px solid gray;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Style the navigation bar with a light cyan background, center-align text,
+   and add padding to the links */
+nav {
+    overflow: hidden;
+    background-color: lightcyan;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+/* Style the navigation links, including hover effects */
+nav a {
+    text-decoration: solid; /* Note: 'solid' should be 'none' for removing underlines */
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    padding: 15px;
+    margin-right: 5%;
+}
+
+/* Hover effect for navigation links */
+nav a:hover {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+/* Define the main content section with responsive flex properties */
+.main {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+/* Style individual sections within the main content area */
+section {
+    float: left;
+    width: 33%;
+    margin: 0.1%;
+}
+
+/* Responsive styling for sections on smaller screens */
+@media screen and (max-width: 1100px) {
+    section {
+        flex: 100%;
+        margin: 4%;
+    }
+}
+
+/* Style the footer with a white background, padding, and a gray border */
+footer {
+    background-color: white;
+    padding: 3px;
+    text-align: center;
+    border: 2px solid gray;
+}
+
+/* Style table cells with padding and borders */
+th, td {
+    padding: 15px;
+    border: 1px solid;
+}
+
+/* Style table captions with padding and bold text */
 caption {
     padding: 15px;
     font-weight: bold;
 }
 
+/* Style various picture of me to look like profile picture shape and small */
 #profile_pic {
-    width:40%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 3%;
 }
 
+/* Style picture of Brandeis logo to be circular shape and small */
+#brandeis_logo {
+    width: 160px;
+    height: 160px;
+    margin-left: 5%;
+    border-radius: 50%;
+    background-color: white;
+}
+
+/* Style picture of programming picture to be circular shape and small */
+#programming {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin-left: 5%;
+}
+
+/* Style social media and contact links with background color and padding */
+#linkedin, #email, #resume, #github {
+    text-decoration: solid; /* Note: 'solid' should be 'none' for removing underlines */
+    font-weight: bold;
+    background-color: aqua;
+    padding: 3%;
+    margin-right: 5%;
+}
+
+/* Hover effect for social media and contact links, change color based on hovering */
+#linkedin:hover, #email:hover, #resume:hover, #github:hover {
+    color: white;
+    background-color: blue;
+}
