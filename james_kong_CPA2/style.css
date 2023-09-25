@@ -92,6 +92,7 @@ caption {
     height: 160px;
     border-radius: 50%;
     overflow: hidden;
+    float: left;
     margin-left: 3%;
 }
 
