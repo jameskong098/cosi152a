@@ -1,0 +1,80 @@
+/* Set the background color of the entire page to light blue
+   and specify a font stack for text content */
+body {
+    background-color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+/* Style the header section with a white background, a gray border,
+   padding, and center-align its contents */
+header {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+/* Style the navigation bar with a light cyan background, center-align text,
+   and add padding to the links */
+nav {
+    overflow: hidden;
+    background-color: #f5f5f5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+.nav_items {
+    color: #003478;
+}
+
+/* Style the navigation links, including hover effects */
+nav a {
+    text-decoration: solid;
+    font-weight: bold;
+    font-size:larger;
+    display: block;
+    text-align: center;
+    padding: 15px;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+/* Hover effect for navigation links */
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Style the footer with a white background, padding, and a gray border */
+footer {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 1%;
+    text-align: center;
+}
+
+/* Style various picture of me to look like profile picture shape and small */
+#brandeis_logo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+    margin-left: 3%;
+}
+
+#header_text {
+    display: flex;
+    flex-direction: column;
+    color: #003478;
+}
+
+#proud {
+    margin: 4%;
+    padding: 2%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
+}
