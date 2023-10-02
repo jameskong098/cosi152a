@@ -1,80 +1,169 @@
-/* Set the background color of the entire page to light blue
-   and specify a font stack for text content */
 body {
     background-color: white;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 0;
+    padding: 0;
 }
 
-/* Style the header section with a white background, a gray border,
-   padding, and center-align its contents */
 header {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
-/* Style the navigation bar with a light cyan background, center-align text,
-   and add padding to the links */
 nav {
     overflow: hidden;
-    background-color: #f5f5f5;
+    background-color: #003478;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     display: flex;
+    align-items: center;
     justify-content: center;
     padding: 15px;
 }
 
 .nav_items {
-    color: #003478;
+    color: white;
+    border: solid 1px;
+    width: 90px;
+    height: 10px;
 }
 
-/* Style the navigation links, including hover effects */
+
 nav a {
     text-decoration: solid;
     font-weight: bold;
     font-size:larger;
-    display: block;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 15px;
     margin-right: 5%;
     margin-left: 5%;
 }
 
-/* Hover effect for navigation links */
+
 nav a:hover {
     text-decoration: underline;
+    background-color: white;
+    color: black;
 }
 
-/* Style the footer with a white background, padding, and a gray border */
+
 footer {
-    background-color: white;
+    background-color: #003478;
+    color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 1%;
     text-align: center;
+    font-size: 110%;
 }
 
-/* Style various picture of me to look like profile picture shape and small */
+.social_button {
+    color: white;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-top: 1%;
+    text-decoration: none;
+}
+
+.social_button:hover {
+    color: rgba(255,255,255,0.7)
+}
+
+.sub-header {
+    font-size: 400%;
+    font-weight: bold;
+}
+
+.alumni_pics {
+    width: 50%;
+    margin-right: 5%;
+    min-width: 400px;
+}
+
+.alumni_pics:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0);
+    
+}
+
+.alumni_post {
+    padding: 5%;
+    display: flex;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.alumni_pic_desc {
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    padding: 3%;
+    background-color: rgba(177, 210, 232, 0.2);
+}
+
+#alum_desc {
+    font-size: 200%;
+}
+
 #brandeis_logo {
     width: 160px;
     height: 160px;
     border-radius: 50%;
     overflow: hidden;
     float: left;
-    margin-left: 3%;
+    margin-right: 1%;
 }
 
 #header_text {
-    display: flex;
-    flex-direction: column;
     color: #003478;
+    font-size: 300%;
 }
 
 #proud {
-    margin: 4%;
+    margin-left: 15%;
+    margin-right: 15%;
     padding: 2%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    width: 1000px;
+    height: 40%;
+    color: white;
+}
+
+#beginning {
+    background-image: url("./brandeis-alumni.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 50%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: darken;
+}
+
+@media screen and (max-width: 1199px) {
+    #header_text {
+        font-size: 0%;
+    }
+    
+    #beginning {
+        background-size: 190%; 
+    }
+
+    .alumni_post {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sub-header {
+        font-size: 200%;
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #beginning {
+        background-size: 100%; 
+    }
 }
