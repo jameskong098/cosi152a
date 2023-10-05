@@ -8,7 +8,16 @@ router.get('/', function(req, res, next) {
 
 /* GET home page. */
 router.get('/home', function(req, res, next) {
-  res.send('Welcome to my first express application')
+  console.log(`Received a ${req.method} request to ${req.url}`)
+  next()
+}),
+  router.get('/home', function(req, res, next) {
+    res.send('Welcome to my first express application')
+  });
+
+router.post('/contact', function(req, res, next) {
+  console.log(req.body);
+  res.send("Contact Information was sent!");
 });
 
 module.exports = router;
