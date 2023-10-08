@@ -1,0 +1,11 @@
+{
+  "name": "brandeis_saa",
+  "version": "1.0.0",
+  "description": "CPA4",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "James Kong",
+  "license": "ISC"
+}
