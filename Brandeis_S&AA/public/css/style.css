@@ -83,6 +83,8 @@ footer {
     width: 50%;
     margin-right: 5%;
     min-width: 400px;
+    max-height: 270px;
+    align-items: center;
 }
 
 .alumni_pics:hover {
@@ -91,18 +93,36 @@ footer {
 }
 
 .alumni_post {
-    padding: 5%;
     display: flex;
+    padding: 5%;
     margin-left: 15%;
     margin-right: 15%;
 }
 
 .alumni_pic_desc {
-    display: flex;
     align-items: center;
     font-size: larger;
     padding: 3%;
     background-color: rgba(177, 210, 232, 0.2);
+}
+
+.main_content {
+    display: flex;
+    justify-content: center;
+}
+
+.main_text {
+    max-width: 1000px;
+    font-size: 140%;
+}
+
+.contact {
+    padding-bottom: 50%;
+}
+
+#job_op {
+    text-align: center;
+    font-size: 200%;
 }
 
 #alum_desc {
