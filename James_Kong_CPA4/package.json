@@ -1,0 +1,14 @@
+{
+  "name": "brandeis_saa",
+  "version": "1.0.0",
+  "description": "CPA4 - Project uses CPA3 Frontend and adds Node.js server functionality to serve different pages of the site",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "James Kong",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

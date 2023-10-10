@@ -1,7 +1,7 @@
 const httpStatus = require("http-status-codes")
 const contentType = require("./public/js/contentType")
 
-var routes = {
+const routes = {
     GET: {},
     POST: {},
 };
