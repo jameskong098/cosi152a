@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="/css/style.css" />
+<table>
+  <tr>
+    <td><img src="/images/image.jpg" alt="" /></td>
+    <td>
+      <h2>Our Courses</h2>
+      <% offeredCourses.forEach(course => { %>
+      <h5><%= course.title %></h5>
+      <h6>$ <%= course.cost %></h6>
+      <% }); %>
+    </td>
+  </tr>
+</table>
