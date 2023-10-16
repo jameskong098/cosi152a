@@ -13,6 +13,8 @@ app.listen(port)
 console.log(`The server is listening on port number: ${port}`)
 
 app.use(layouts)
+app.use(express.static("public"))
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

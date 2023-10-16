@@ -1,0 +1,15 @@
+#goblin_copy_pasta {
+    text-align: center;
+    text-decoration: wavy;
+    font-weight:bold;
+}
+
+#nav {
+    display: flex; 
+    padding: 2%; 
+    align-items: center;
+}
+
+#bruh {
+    width: 110%;
+}
