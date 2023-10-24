@@ -1,0 +1,22 @@
+{
+  "name": "brandeis_saa_express",
+  "version": "1.0.0",
+  "description": "CPA4 Node.js server application converted to Express.js based server application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "CPA4",
+    "Express.js"  
+  ],
+  "author": "James Kong",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "http-errors": "^2.0.0",
+    "path": "^0.12.7"
+  }
+}

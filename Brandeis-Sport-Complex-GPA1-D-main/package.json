@@ -1,0 +1,30 @@
+{
+  "name": "brandeis_sport_complex_gpa1_d",
+  "version": "1.0.0",
+  "description": "A website for sport complex of the Brandeis University to effectively",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "sport",
+    "complex",
+    "Brandeis",
+    "University",
+    "showcase",
+    "facilities",
+    "programs",
+    "events",
+    "visitors",
+    "members"
+  ],
+  "author": "James Kong, Liulu Yue, Jeremy Bernstein, Wenxiao Wang",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "http-errors": "^2.0.0",
+    "path": "^0.12.7"
+  }
+}
