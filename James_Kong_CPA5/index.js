@@ -36,14 +36,7 @@ app.get("/contact", homeController.respondWithContact);
 
 app.get("/events", homeController.respondWithEvents);
 
-app.get("/index", homeController.respondWithIndex);
-
 app.get("/jobs", homeController.respondWithJobs);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
 
 // error handler
 app.use(errorController.pageNotFoundError);
