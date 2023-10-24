@@ -9,18 +9,10 @@ const errorController = require("./controllers/errorController");
 var app = express();
 
 // Set-up port and connection
-const port = 8080
-app.listen(port)
-console.log(`The server is listening on port number: ${port}`)
-
-/*
-// Set-up port and connection
-app.set("port", process.env.PORT || 3000);
-app.listen(port)
+app.set("port", process.env.PORT || 8080);
 app.listen(app.get("port"), () => {
   console.log(`Server running at http://localhost:${app.get("port")}`);
 });
-*/
 
 // Set-up static layout (header + footer)
 app.use(layouts)
