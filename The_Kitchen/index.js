@@ -40,63 +40,19 @@ db.once("open", () => {
 //     if (error) console.log(error);
 //   });
 
-var query = Subscriber.findOne({ name: "Test" }).where("email", /tes/);
+// var query = Subscriber.findOne({ name: "Test" }).where("email", /tes/);
 
-query
-  .exec()
-  .then((data) => {
-    console.log("The data is found!");
-    console.log(data);
-  })
-  .catch((error) => {
-    if (error) {
-      console.log(error);
-    }
-  });
-
-/*
-var query2 = Subscriber.findOneAndRemove({ name: "Test" }).where("email", /tes/);
-
-query2
-  .exec()
-  .then((data) => {
-    console.log("Data is deleted!");
-    console.log(data);
-  })
-  .catch((error) => {
-    if (error) {
-      console.log(error);
-    }
-  });
-
-output:
-
-Data is deleted!
-{
-  _id: new ObjectId("653878f51342fe5b28d46a24"),
-  name: 'Test',
-  email: 'tes@brandeis.edu',
-  zipCode: 12345,
-  __v: 0
-}
-*/
-
-/*
-
-var query2 = Subscriber.findOneAndUpdate({ name: "Test", email: "tes@brandeis.edu" }, { name: "Bob", email: "bob@brandeis.edu"});
-
-query2
-  .exec()
-  .then((data) => {
-    console.log("Data is updated!");
-    console.log(data);
-  })
-  .catch((error) => {
-    if (error) {
-      console.log(error);
-    }
-  });
-*/
+// query
+//   .exec()
+//   .then((data) => {
+//     console.log("The data is found!");
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     if (error) {
+//       console.log(error);
+//     }
+//   });
 
 const app = express();
 app.set("view engine", "ejs");
@@ -115,6 +71,8 @@ app.get("/subscribers", subscribersController.getAllSubscribers, (req, res) => {
   // res.send(req.data);
   res.render("subscribers", { subscribers: req.data });
 });
+app.get("/subscribe", subscribersController.getSubscriptionPage);
+app.post("/subscribe", subscribersController.saveSubscriber);
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
