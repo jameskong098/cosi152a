@@ -31,6 +31,24 @@ db.once("open", () => {
 //     if (error) console.log(error);
 //   });
 
+    Subscriber.create({
+      name: "Max",
+      email: "Max@brandeis.edu",
+      zipCode: 12345,
+    })
+      .then((subscriber_created) => {
+        var query_find = Subscriber.findOne( {name: "Max"} );
+        console.log(query_find)
+        return query_find
+      })
+      .then((subscriber_found) => {
+        var status = Subscriber.deleteOne( { name: "Max" } )
+        console.log("Deleted!: " + status)
+      })
+      .catch((error) => {
+        if (error) console.log(error);
+      });
+
 // subscriber1
 //   .save()
 //   .then((data) => {
