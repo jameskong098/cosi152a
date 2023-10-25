@@ -6,10 +6,6 @@ exports.respondWithContact = (req, res) => {
     res.render("contact");
 };
 
-exports.respondWithError = (req, res) => {
-    res.render("error");
-};
-
 exports.respondWithEvents = (req, res) => {
     res.render("events");
 };

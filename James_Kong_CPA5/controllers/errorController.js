@@ -6,7 +6,7 @@ exports.pageNotFoundError = (req, res, next) => {
     res.render("error", { error_status : errorCode}); 
 };
 
-exports.internalServerError = (req, res, next) => {
+exports.internalServerError = (err, req, res, next) => {
     let errorCode = httpStatus.INTERNAL_SERVER_ERROR;
     res.status(errorCode);
     res.render("error", { error_status : errorCode}); 
