@@ -32,17 +32,17 @@ db.once("open", () => {
 //   });
 
     Subscriber.create({
-      name: "Max",
-      email: "Max@brandeis.edu",
-      zipCode: 12345,
+      name: "Max3",
+      email: "Max3@brandeis.edu",
+      zipCode: 12325,
     })
       .then((subscriber_created) => {
-        var query_find = Subscriber.findOne( {name: "Max"} );
-        console.log(query_find)
+        var query_find = Subscriber.findOne( {name: "Max3"} ).exec();
+        console.log("Find One: " + query_find)
         return query_find
       })
       .then((subscriber_found) => {
-        var status = Subscriber.deleteOne( { name: "Max" } )
+        var status = Subscriber.deleteOne( { name: "Max3" } ).exec();
         console.log("Deleted!: " + status)
       })
       .catch((error) => {
