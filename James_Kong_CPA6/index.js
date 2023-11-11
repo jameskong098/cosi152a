@@ -3,10 +3,15 @@ var path = require('path');
 const layouts = require("express-ejs-layouts")
 const mongoose = require("mongoose");
 var homeController = require('./controllers/homeController')
+var jobController = require('./controllers/jobController')
+var eventController = require('./controllers/eventController')
+var userController = require('./controllers/userController')
 const errorController = require("./controllers/errorController");
 
 // Initialize app
 var app = express();
+
+const router = express.Router();
 
 // Set-up port and connection
 app.set("port", process.env.PORT || 8080);
@@ -15,7 +20,7 @@ app.listen(app.get("port"), () => {
 });
 
 // Set-up MongoDB connection
-var address = process.env.DB_ADDRESS || "mongodb://localhost:27017/the_kitchen";
+var address = process.env.DB_ADDRESS || "mongodb://localhost:27017/brandeis_saa";
 mongoose.connect(address);
 const db = mongoose.connection;
 db.once("open", () => {
@@ -32,22 +37,50 @@ app.use(express.static("public"))
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(express.urlencoded({ extended: true }));
+
 // Set up all routes
 
-app.get("/", homeController.respondWithIndex)
+app.use("/", router);
 
-app.get("/index", homeController.respondWithIndex);
+router.get("/", homeController.respondWithIndex)
 
-app.get("/about", homeController.respondWithAbout);
+router.get("/index", homeController.respondWithIndex);
 
-app.get("/contact", homeController.respondWithContact);
+router.get("/about", homeController.respondWithAbout);
 
-app.get("/events", homeController.respondWithEvents);
+router.get("/contact", homeController.respondWithContact);
 
-app.get("/jobs", homeController.respondWithJobs);
+router.get("/events", eventController.getEvents);
+
+router.get("/jobs", jobController.getJobs);
+
+router.get("/login", userController.login)
+
+router.get("/users", userController.index, userController.indexView);
+
+router.get("/users/signup", userController.signup)
+
+router.post("/users/create", userController.create, userController.redirectView)
+
+router.get("/users/:id", userController.show, userController.showView);
+
+router.get("/users/:id/edit", userController.edit);
+
+router.put(
+  "/users/:id/update",
+  userController.update,
+  userController.redirectView
+);
+
+router.delete(
+  "/users/:id/delete",
+  userController.delete,
+  userController.redirectView
+);
 
 // error handler
-app.use(errorController.pageNotFoundError);
-app.use(errorController.internalServerError);
+router.use(errorController.pageNotFoundError);
+router.use(errorController.internalServerError);
 
 module.exports = app;

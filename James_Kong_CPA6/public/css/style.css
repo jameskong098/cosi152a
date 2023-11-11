@@ -174,6 +174,98 @@ footer {
     width: 50%;
 }
 
+.data-form {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    margin: 120px auto;
+}
+
+.data-form h2 {
+    text-align: center;
+    color: #333;
+}
+
+.data-form label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #555;
+}
+
+.data-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.data-form button {
+    background-color: #003478;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.data-form button:hover {
+    background-color: #0057a4;
+}
+
+#user_index {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 6%;
+    
+}
+
+.table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #003478;
+    color: white;
+}
+
+.table a {
+    text-decoration: none;
+    color: #003478;
+}
+
+.table a:hover {
+    text-decoration: underline;
+    color: #001f3f;
+}
+
+.user-link {
+    font-weight: bold;
+    color: #0057a4;
+}
+
+.user-link:hover {
+    text-decoration: underline;
+    color: #003478;
+}
+
+
+
 @media screen and (max-width: 1199px) {
     #header_text {
         font-size: 0%;
