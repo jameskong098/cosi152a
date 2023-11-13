@@ -6,8 +6,69 @@ module.exports = {
     const events = await Event.find();
 
     // Render the events.ejs view with the retrieved events
-    res.render("events", { events });
+    res.render("events/index", { events });
    
+  },
+  show: (req, res, next) => {
+    let eventId = req.params.id;
+    Event.findById(eventId)
+      .then((event) => {
+        res.locals.event = event;
+        next();
+      })
+      .catch((error) => {
+        console.log(`Error fetching event by ID: ${error.message}`);
+        next(error);
+      });
+  },
+  showView: (req, res) => {
+    res.render("events/show");
+  },
+  edit: (req, res, next) => {
+    let eventId = req.params.id;
+    Event.findById(eventId)
+      .then((event) => {
+        res.render("events/edit", {
+          event: event,
+        });
+      })
+      .catch((error) => {
+        console.log(`Error fetching event by ID: ${error.message}`);
+        next(error);
+      });
+  },
+  update: (req, res, next) => {
+    let eventId = req.params.id,
+      eventParams = getEventParams(req.body);
+    Event.findByIdAndUpdate(eventId, {
+      $set: eventParams,
+    })
+      .then((events) => {
+        res.locals.redirect = `/events/${eventId}`;
+        res.locals.events = events;
+        next();
+      })
+      .catch((error) => {
+        console.log(`Error updating event by ID: ${error.message}`);
+        next(error);
+      });
+  },
+  delete: (req, res, next) => {
+    let eventId = req.params.id;
+    Event.findByIdAndRemove(eventId)
+      .then(() => {
+        res.locals.redirect = "/events";
+        next();
+      })
+      .catch((error) => {
+        console.log(`Error deleting event by ID: ${error.message}`);
+        next();
+      });
+  },
+  redirectView: (req, res, next) => {
+    let redirectPath = res.locals.redirect;
+    if (redirectPath) res.redirect(redirectPath);
+    else next();
   },
   attend: async (req, res, next) => {
     // Find the event by registrationLink

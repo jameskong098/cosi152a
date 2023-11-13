@@ -41,7 +41,7 @@ const addSampleUserToDatabase = async () => {
 module.exports = {
     // Function to add events to the database
     addEventsToDatabase : async () => {
-        addSampleUserToDatabase();
+        await addSampleUserToDatabase();
         const sampleUser = await User.findOne({ email: "john.doe@example.com" });
         const eventsToAdd = [
             {
@@ -95,7 +95,7 @@ module.exports = {
         }
     },
     addSampleJobsToDatabase: async () => {
-        addSampleUserToDatabase();
+        await addSampleUserToDatabase();
         const jobsToAdd = [
           {
             title: "Brandeis Alumni Coordinator",

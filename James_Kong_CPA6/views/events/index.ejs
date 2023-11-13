@@ -14,6 +14,7 @@
                 <input type="hidden" name="event_registrationLink" value="<%= event.registrationLink %>">
                 <button type="submit">Register Now</button>
               </form>
+              <a href="<%=`/events/${event._id}`%>">View Details</a>
             </li>
           <% }); %>
         </ul>

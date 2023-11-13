@@ -20,13 +20,16 @@ const router = express.Router();
 
 // Set-up port and connection
 app.set("port", process.env.PORT || 8080);
-app.listen(app.get("port"), () => {
+app.listen(app.get("port"), async () => {
+  await setup.addEventsToDatabase();
+  await setup.addSampleJobsToDatabase();
   console.log(`Server running at http://localhost:${app.get("port")}`);
 });
 
 // Set-up MongoDB connection
-var address = process.env.DB_ADDRESS || "mongodb://localhost:27017/brandeis_saa";
+var address = process.env.DB_ADDRESS || "mongodb://127.0.0.1:27017/brandeis_saa";
 mongoose.connect(address);
+console.log("address: " + address)
 const db = mongoose.connection;
 db.once("open", () => {
   console.log("Connected to the database!");
@@ -64,8 +67,6 @@ router.use((req, res, next) => {
   next();
 });
 
-setup.addEventsToDatabase();
-setup.addSampleJobsToDatabase();
 
 // Set up all routes
 
@@ -88,6 +89,22 @@ router.get("/about", homeController.respondWithAbout);
 router.get("/contact", homeController.respondWithContact);
 
 router.get("/events", eventController.getEvents);
+
+router.get("/events/:id", eventController.show, eventController.showView);
+
+router.get("/events/:id/edit", eventController.edit);
+
+router.put(
+  "/events/:id/update",
+  eventController.update,
+  eventController.redirectView
+);
+
+router.delete(
+  "/events/:id/delete",
+  eventController.delete,
+  eventController.redirectView
+);
 
 router.post(
   "/attend", 
