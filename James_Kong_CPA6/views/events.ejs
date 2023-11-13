@@ -1,35 +1,23 @@
 <html>
-    <body>
-        <section class="main_content">
-            <article class="main_text">
-                <h2 id="job_op">Event Listings</h2>
-                <ul>
-                    <li>
-                        <h3>Celebrate Brandeis at 75</h3>
-                        <p>Description: Join the entire Brandeis community — alumni, friends, families, students and staff — for an anniversary celebration 75 years in the making this October.</p>
-                        <p>Location: Waltham, Massachusetts</p>
-                        <p>Date: October 13-15, 2023</p>
-                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Register Now</a>
-                    </li>
-                    
-                    <li>
-                        <h3>Wien Buffet Dinner and Drinks</h3>
-                        <p>Description: Help Brandeis recruit more fellow Brandeisians to enjoy the same experience that you did!</p>
-                        <p>Location: Napoli Room | Gosman Sports and Convocation Center | Waltham, Massachusetts</p>
-                        <p>Date: October 13 6:30 PM EDT - 8:30 PM EDT</p>
-                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Register Now</a>
-                    </li>
-
-                    <li>
-                        <h3>Brandeis International Business School NYC Networking</h3>
-                        <p>Description: We are coming to NYC and want to see you! Join Brandeis International Business School for a networking event on Wednesday, October 18 at The Smith - Nomad. Meet and mingle with fellow alumni from the area, International Business School faculty, staff, and a group of students in town on a Finance Industry Trek.  
-                            This event is sponsored by Brandeis International Business School Alumni Relations and the Career Strategies and Engagement Center. All alumni are welcome. Appetizers and refreshments served.  </p>
-                        <p>Location: The Smith - NoMad | 1150 Broadway, New York, NY 10001</p>
-                        <p>Posted on: Wednesday, October 18, 2023 6:30 PM to 8:30 PM EST</p>
-                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Register Now</a>
-                    </li>
-                </ul>
-            </article>
-        </section>
-    </body>
+  <body>
+    <section class="main_content">
+      <article class="main_text">
+        <h2 id="job_op">Event Listings</h2>
+        <ul>
+          <% events.forEach(event => { %>
+            <li>
+              <h3><%= event.title %></h3>
+              <p>Description: <%= event.description %></p>
+              <p>Location: <%= event.location %></p>
+              <p>Date: <%= event.startDate.toDateString() %> - <%= event.endDate.toDateString() %></p>
+              <form action="/attend" method="post">
+                <input type="hidden" name="event_registrationLink" value="<%= event.registrationLink %>">
+                <button type="submit">Register Now</button>
+              </form>
+            </li>
+          <% }); %>
+        </ul>
+      </article>
+    </section>
+  </body>
 </html>

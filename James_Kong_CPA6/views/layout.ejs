@@ -17,7 +17,12 @@
             <a class="nav_items" href="/jobs">Jobs</a>
             <a class="nav_items" href="/events">Events</a>
             <a class="nav_items" href="/contact">Contact</a>
-            <a class="nav_items" href="/login">Login</a>
+            <% if (!user) { %>
+                <a class="nav_items" href="/login">Login</a>
+            <% } else { %>
+                <a class="nav_items" href="<%=`/users/${user._id}`%>">Profile</a>
+                <a class="nav_items" href="/logout">Logout</a>
+            <% } %>
         </nav>
         <header>
             <image src="/images/BrandeisLogo.png" id="brandeis_logo" alt="Brandeis Logo"/>
@@ -25,6 +30,13 @@
                 <p>Students & Alumni Association</p>
             </div>
         </header>
+        <div class="flashes">
+            <% if (flashMessages) { %> <% if (flashMessages.success) { %>
+            <div class="flash success"><%= flashMessages.success %></div>
+            <% } else if (flashMessages.error) { %>
+            <div class="flash error"><%= flashMessages.error %></div>
+            <% } %> <% } %>
+        </div>
         <%- body %>
         <footer>
             <p>© 2024 Brandeis University | All Rights Reserved</p>

@@ -7,6 +7,11 @@ var jobController = require('./controllers/jobController')
 var eventController = require('./controllers/eventController')
 var userController = require('./controllers/userController')
 const errorController = require("./controllers/errorController");
+const methodOverride = require("method-override");
+const connectFlash = require("connect-flash");
+const expressSession = require("express-session");
+const cookieParser = require("cookie-parser");
+const setup = require("./setup")
 
 // Initialize app
 var app = express();
@@ -37,11 +42,41 @@ app.use(express.static("public"))
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+router.use(
+  methodOverride("_method", {
+    methods: ["POST", "GET"],
+  })
+);
+router.use(connectFlash());
+router.use(
+  expressSession({
+    secret: "secret_passcode",
+    cookie: { maxAge: 4000000 },
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+router.use(cookieParser("secret_passcode"));
+router.use((req, res, next) => {
+  res.locals.flashMessages = req.flash();
+  next();
+});
+
+setup.addEventsToDatabase();
 
 // Set up all routes
 
 app.use("/", router);
+
+// Middleware to add user to response locals
+const setUserLocals = (req, res, next) => {
+  res.locals.user = req.session.user
+  next();
+};
+
+router.use(setUserLocals)
 
 router.get("/", homeController.respondWithIndex)
 
@@ -53,9 +88,23 @@ router.get("/contact", homeController.respondWithContact);
 
 router.get("/events", eventController.getEvents);
 
+router.post(
+  "/attend", 
+  userController.checkLoggedIn,
+  eventController.attend,
+);
+
 router.get("/jobs", jobController.getJobs);
 
 router.get("/login", userController.login)
+
+router.post(
+  "/users/login",
+  userController.authenticate,
+  userController.redirectView
+);
+
+router.get('/logout', userController.logout);
 
 router.get("/users", userController.index, userController.indexView);
 

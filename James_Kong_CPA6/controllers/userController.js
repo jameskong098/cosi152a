@@ -41,12 +41,20 @@ module.exports = {
     let userParams = getUserParams(req.body);
     User.create(userParams)
       .then((user) => {
+        req.flash(
+          "success",
+          `${user.name}'s account created successfully!`
+        );
         res.locals.redirect = "/users";
         res.locals.user = user;
         next();
       })
       .catch((error) => {
         console.log(`Error saving user: ${error.message}`);
+        req.flash(
+          "error",
+          `Failed to create user account because: ${error.message}.`
+        );
         res.locals.redirect = "/users/new";
         next();
       });
@@ -113,7 +121,16 @@ module.exports = {
       });
   },
   login: (req, res) => {
-    res.render("users/login");
+    res.render("users/login", { user: req.session.user });
+  },
+  logout: (req, res) => {
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      } else {
+        res.redirect('/');
+      }
+    });
   },
   authenticate: (req, res, next) => {
     User.findOne({
@@ -122,7 +139,8 @@ module.exports = {
       .then((user) => {
         if (user && user.password === req.body.password) {
           res.locals.redirect = `/users/${user._id}`;
-          req.flash("success", `${user.fullName}'s logged in successfully!`);
+          req.flash("success", `${user.name}'s logged in successfully!`);
+          req.session.user = user;
           res.locals.user = user;
           next();
         } else {
@@ -138,5 +156,12 @@ module.exports = {
         console.log(`Error logging in user: ${error.message}`);
         next(error);
       });
+  },
+  checkLoggedIn: (req, res, next) => {
+    if (!req.session || !req.session.user) {
+      res.redirect("/login")
+    } else {
+      next();
+    }
   },
 };
