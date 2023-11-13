@@ -65,6 +65,7 @@ router.use((req, res, next) => {
 });
 
 setup.addEventsToDatabase();
+setup.addSampleJobsToDatabase();
 
 // Set up all routes
 

@@ -7,7 +7,7 @@ const jobSchema = mongoose.Schema({
     description: { type: String, required: true },
     requirements: { type: String, required: true },
     salary: { type: Number, required: true },
-    contactEmail: { type: Number, required: true },
+    contactEmail: { type: String, required: true },
     contactPhone: { type: String, required: true },
     postDate: { type: Date, default: Date.now },
     deadlineDate: { type: Date, required: true },

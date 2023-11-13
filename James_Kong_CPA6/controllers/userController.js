@@ -121,7 +121,7 @@ module.exports = {
       });
   },
   login: (req, res) => {
-    res.render("users/login", { user: req.session.user });
+    res.render("users/login");
   },
   logout: (req, res) => {
     req.session.destroy(err => {
@@ -139,7 +139,7 @@ module.exports = {
       .then((user) => {
         if (user && user.password === req.body.password) {
           res.locals.redirect = `/users/${user._id}`;
-          req.flash("success", `${user.name}'s logged in successfully!`);
+          req.flash("success", `You have logged in successfully!`);
           req.session.user = user;
           res.locals.user = user;
           next();

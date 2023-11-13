@@ -1,5 +1,6 @@
 const Event = require("./models/event")
 const User = require('./models/user');
+const Job = require('./models/job')
 
 // Function to add a sample user to the database
 const addSampleUserToDatabase = async () => {
@@ -38,7 +39,6 @@ const addSampleUserToDatabase = async () => {
 };
 
 module.exports = {
-    
     // Function to add events to the database
     addEventsToDatabase : async () => {
         addSampleUserToDatabase();
@@ -92,6 +92,65 @@ module.exports = {
             console.log("Events added to the database successfully!");
         } catch (error) {
             console.error("Error adding events to the database:", error);
+        }
+    },
+    addSampleJobsToDatabase: async () => {
+        addSampleUserToDatabase();
+        const jobsToAdd = [
+          {
+            title: "Brandeis Alumni Coordinator",
+            company: "Brandeis University",
+            location: "Waltham, Massachusetts",
+            description: "Work with fellow alumni members to organize and plan events and gatherings!",
+            requirements: "Excellent organizational and communication skills",
+            salary: 50000,
+            contactEmail: "jobs@brandeis.edu",
+            contactPhone: "555-1234",
+            deadlineDate: new Date("2023-11-01"),
+          },
+          {
+            title: "Brandeis Recruiter",
+            company: "Brandeis University",
+            location: "Waltham, Massachusetts",
+            description: "Help Brandeis recruit more fellow Brandeisians to enjoy the same experience that you did!",
+            requirements: "Experience in recruitment and strong interpersonal skills",
+            salary: 60000,
+            contactEmail: "jobs@brandeis.edu",
+            contactPhone: "555-5678",
+            deadlineDate: new Date("2023-10-15"),
+          },
+          {
+            title: "Brandeis International Ambassador At Copenhagen",
+            company: "Brandeis University",
+            location: "Copenhagen, Denmark",
+            description: "Our Brandeis at Copenhagen program needs on-duty staff to participate in the facilitation of the program in Denmark.",
+            requirements: "Fluency in English and Danish",
+            salary: 55000,
+            contactEmail: "jobs@brandeis.edu",
+            contactPhone: "555-9876",
+            deadlineDate: new Date("2023-09-30"),
+          },
+        ];
+      
+        try {
+          for (const jobData of jobsToAdd) {
+            // Check if the job already exists by title and deadline date
+            const existingJob = await Job.findOne({
+              title: jobData.title,
+              deadlineDate: jobData.deadlineDate,
+            });
+      
+            if (!existingJob) {
+              // Job does not exist, create a new one
+              const newJob = new Job(jobData);
+              await newJob.save();
+            } else {
+              console.log(`Job '${jobData.title}' already exists. Skipping.`);
+            }
+          }
+          console.log("Jobs added to the database successfully!");
+        } catch (error) {
+          console.error("Error adding jobs to the database:", error);
         }
     }
 }
