@@ -296,6 +296,12 @@ background-color: #4caf50; /* Green */
 color: #fff;
 background-color: #f44336; /* Red */
 }
+
+#add_event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
   
 
 @media screen and (max-width: 1199px) {

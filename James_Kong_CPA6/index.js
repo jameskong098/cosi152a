@@ -78,9 +78,9 @@ const setUserLocals = (req, res, next) => {
   next();
 };
 
-router.use(setUserLocals)
+router.use(setUserLocals);
 
-router.get("/", homeController.respondWithIndex)
+router.get("/", homeController.respondWithIndex);
 
 router.get("/index", homeController.respondWithIndex);
 
@@ -88,7 +88,11 @@ router.get("/about", homeController.respondWithAbout);
 
 router.get("/contact", homeController.respondWithContact);
 
-router.get("/events", eventController.getEvents);
+router.get("/events", eventController.getEvents, eventController.redirectView);
+
+router.get("/events/create", eventController.checkLoggedIn, eventController.create);
+
+router.post("/events/add", eventController.add, eventController.redirectView);
 
 router.get("/events/:id", eventController.show, eventController.showView);
 

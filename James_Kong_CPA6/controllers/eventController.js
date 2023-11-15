@@ -1,5 +1,17 @@
 const Event = require("../models/event");
 
+const getEventParams = (body) => {
+  return {
+    title: body.title,
+    description: body.description,
+    location: body.location,
+    startDate: new Date(body.startDate),
+    endDate: new Date(body.endDate),
+    isOnline: body.isOnline || false,
+    registrationLink: body.registrationLink,
+  };
+};
+
 module.exports = {
   getEvents: async (req, res, next) => {
     // Retrieve all events from the database
@@ -23,6 +35,32 @@ module.exports = {
   },
   showView: (req, res) => {
     res.render("events/show");
+  },
+  create: (req, res) => {
+    res.render("create")
+  },
+  add: (req, res, next) => {
+    let eventParams = getEventParams(req.body);
+    eventParams.organizer = req.session.user._id
+    Event.create(eventParams)
+      .then((event) => {
+        req.flash(
+          "success",
+          `${event.name} was created successfully!`
+        );
+        res.locals.redirect = "/events";
+        res.locals.event = event;
+        next();
+      })
+      .catch((error) => {
+        console.log(`Error saving event: ${error.message}`);
+        req.flash(
+          "error",
+          `Failed to create event because: ${error.message}.`
+        );
+        res.locals.redirect = "/events/create";
+        next();
+      });
   },
   edit: (req, res, next) => {
     let eventId = req.params.id;
@@ -96,5 +134,12 @@ module.exports = {
     // Respond with success message or other relevant information
     req.flash("success", `${req.session.user.name}'s has successfully registered for the event!`);
     res.redirect("/events")
-  }
+  },
+  checkLoggedIn: (req, res, next) => {
+    if (!req.session || !req.session.user) {
+      res.redirect("/login")
+    } else {
+      next();
+    }
+  },
 };
