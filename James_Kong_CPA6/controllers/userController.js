@@ -133,18 +133,18 @@ module.exports = {
     })
       .then((user) => {
         if (user && user.password === req.body.password) {
-          res.locals.redirect = req.session.prevURL;
+          res.locals.redirect = !req.session.prevURL ? `/users/${user._id}` : req.session.prevURL;
           req.flash("success", `Welcome ${user.name}! You have logged in successfully!`);
           req.session.user = user;
           res.locals.user = user;
           next();
         } else {
-          req.flash(
-            "error",
-            "Your account or password is incorrect. Please try again or contact your system administrator!"
-          );
-          res.locals.redirect = "/users/login";
-          next();
+            req.flash(
+              "error",
+              "Your account or password is incorrect. Please try again or contact your system administrator!"
+            );
+            res.locals.redirect = "/login";
+            next();
         }
       })
       .catch((error) => {
