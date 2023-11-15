@@ -12,5 +12,5 @@ module.exports = {
         let redirectPath = res.locals.redirect;
         if (redirectPath) res.redirect(redirectPath);
         else next();
-    },
+    }
 }
