@@ -1,0 +1,92 @@
+<div class="data-form">
+    <form method="POST" action="/jobs/add">
+        <h2>Create Job:</h2>
+        <label for="inputTitle">Job Title</label>
+        <input
+            type="text"
+            name="title"
+            id="inputTitle"
+            placeholder="Job Title"
+            autofocus
+            required
+        />
+        <label for="inputCompany">Company</label>
+        <input
+            type="text"
+            name="company"
+            id="inputCompany"
+            placeholder="Company"
+            required
+        />
+        <label for="inputLocation">Job Location</label>
+        <input
+            type="text"
+            name="location"
+            id="inputLocation"
+            placeholder="Job Location"
+            required
+        />
+        <label for="inputDescription">Job Description</label>
+        <textarea
+            name="description"
+            id="inputDescription"
+            placeholder="Job Description"
+            required
+        ></textarea>
+        <label for="inputRequirements">Job Requirements</label>
+        <textarea
+            name="requirements"
+            id="inputRequirements"
+            placeholder="Job Requirements"
+            required
+        ></textarea>
+        <label for="inputSalary">Salary</label>
+        <input
+            type="number"
+            name="salary"
+            id="inputSalary"
+            placeholder="Salary"
+            required
+        />
+        <label for="inputContactEmail">Contact Email</label>
+        <input
+            type="email"
+            name="contactEmail"
+            id="inputContactEmail"
+            placeholder="Contact Email"
+            required
+        />
+        <label for="inputContactPhone">Contact Phone</label>
+        <input
+            type="tel"
+            name="contactPhone"
+            id="inputContactPhone"
+            placeholder="Contact Phone"
+            required
+        />
+        <label for="inputPostDate">Post Date</label>
+        <input
+            type="datetime-local"
+            name="postDate"
+            id="inputPostDate"
+            required
+        />
+        <label for="inputDeadlineDate">Deadline Date</label>
+        <input
+            type="datetime-local"
+            name="deadlineDate"
+            id="inputDeadlineDate"
+            required
+        />
+        <label for="inputIsActive">Is Active?</label>
+        <input
+            type="checkbox"
+            name="isActive"
+            id="inputIsActive"
+        />
+        <button type="submit">Submit</button>
+    </form>
+    <div>
+        <a href="<%= '/jobs'%>">Back to Jobs</a>
+    </div>
+</div>

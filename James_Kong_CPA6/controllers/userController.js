@@ -59,11 +59,6 @@ module.exports = {
         next();
       });
   },
-  redirectView: (req, res, next) => {
-    let redirectPath = res.locals.redirect;
-    if (redirectPath) res.redirect(redirectPath);
-    else next();
-  },
   show: (req, res, next) => {
     let userId = req.params.id;
     User.findById(userId)
@@ -128,7 +123,7 @@ module.exports = {
       if (err) {
         console.error('Error destroying session:', err);
       } else {
-        res.redirect('/');
+          res.redirect('/');
       }
     });
   },
@@ -139,7 +134,7 @@ module.exports = {
       .then((user) => {
         if (user && user.password === req.body.password) {
           res.locals.redirect = `/users/${user._id}`;
-          req.flash("success", `You have logged in successfully!`);
+          req.flash("success", `Welcome ${user.name}! You have logged in successfully!`);
           req.session.user = user;
           res.locals.user = user;
           next();

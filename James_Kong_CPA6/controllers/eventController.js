@@ -7,7 +7,7 @@ const getEventParams = (body) => {
     location: body.location,
     startDate: new Date(body.startDate),
     endDate: new Date(body.endDate),
-    isOnline: body.isOnline || false,
+    isOnline: body.isOnline == 'on' ? true : false,
     registrationLink: body.registrationLink,
   };
 };
@@ -37,7 +37,7 @@ module.exports = {
     res.render("events/show");
   },
   create: (req, res) => {
-    res.render("create")
+    res.render("events/create")
   },
   add: (req, res, next) => {
     let eventParams = getEventParams(req.body);
@@ -46,7 +46,7 @@ module.exports = {
       .then((event) => {
         req.flash(
           "success",
-          `${event.name} was created successfully!`
+          `${event.title} was created successfully!`
         );
         res.locals.redirect = "/events";
         res.locals.event = event;
@@ -103,14 +103,9 @@ module.exports = {
         next();
       });
   },
-  redirectView: (req, res, next) => {
-    let redirectPath = res.locals.redirect;
-    if (redirectPath) res.redirect(redirectPath);
-    else next();
-  },
   attend: async (req, res, next) => {
     // Find the event by registrationLink
-    const event = await Event.findOne({ registrationLink: req.body.event_registrationLink });
+    const event = await Event.findOne({ id: req.body.event_id });
 
     if (!event) {
       req.flash("error", `${req.body.event_registrationLink} was not found!`);
@@ -134,12 +129,5 @@ module.exports = {
     // Respond with success message or other relevant information
     req.flash("success", `${req.session.user.name}'s has successfully registered for the event!`);
     res.redirect("/events")
-  },
-  checkLoggedIn: (req, res, next) => {
-    if (!req.session || !req.session.user) {
-      res.redirect("/login")
-    } else {
-      next();
-    }
   },
 };

@@ -7,5 +7,10 @@ module.exports = {
     },
     respondWithIndex: (req, res) => {
         res.render('index');
-    }
+    },
+    redirectView: (req, res, next) => {
+        let redirectPath = res.locals.redirect;
+        if (redirectPath) res.redirect(redirectPath);
+        else next();
+    },
 }

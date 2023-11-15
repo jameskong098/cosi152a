@@ -3,7 +3,7 @@
     <section class="main_content">
       <article class="main_text">
         <h2 id="job_op">Event Listings</h2>
-        <a id="add_event" href="<%=`/events/create`%>">Add Event</a>
+        <a class="add" href="<%=`/events/create`%>">Add Event</a>
         <ul>
           <% events.forEach(event => { %>
             <li>
@@ -11,8 +11,8 @@
               <p>Description: <%= event.description %></p>
               <p>Location: <%= event.location %></p>
               <p>Date: <%= event.startDate.toDateString() %> - <%= event.endDate.toDateString() %></p>
-              <form action="/attend" method="post">
-                <input type="hidden" name="event_registrationLink" value="<%= event.registrationLink %>">
+              <form action="/events/attend" method="post">
+                <input type="hidden" name="event_id" value="<%= event._id %>">
                 <button type="submit">Register Now</button>
               </form>
               <a href="<%=`/events/${event._id}`%>">View Details</a>

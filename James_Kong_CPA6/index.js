@@ -88,11 +88,11 @@ router.get("/about", homeController.respondWithAbout);
 
 router.get("/contact", homeController.respondWithContact);
 
-router.get("/events", eventController.getEvents, eventController.redirectView);
+router.get("/events", eventController.getEvents, homeController.redirectView);
 
-router.get("/events/create", eventController.checkLoggedIn, eventController.create);
+router.get("/events/create", userController.checkLoggedIn, eventController.create);
 
-router.post("/events/add", eventController.add, eventController.redirectView);
+router.post("/events/add", eventController.add, homeController.redirectView);
 
 router.get("/events/:id", eventController.show, eventController.showView);
 
@@ -101,13 +101,13 @@ router.get("/events/:id/edit", eventController.edit);
 router.put(
   "/events/:id/update",
   eventController.update,
-  eventController.redirectView
+  homeController.redirectView
 );
 
 router.delete(
   "/events/:id/delete",
   eventController.delete,
-  eventController.redirectView
+  homeController.redirectView
 );
 
 router.post(
@@ -118,12 +118,46 @@ router.post(
 
 router.get("/jobs", jobController.getJobs);
 
+router.get("/jobs", jobController.getJobs, homeController.redirectView);
+
+router.get("/jobs/create", userController.checkLoggedIn, jobController.create);
+
+router.post("/jobs/add", jobController.add, homeController.redirectView);
+
+router.get("/jobs/:id", jobController.show, jobController.showView);
+
+router.get("/jobs/:id/edit", jobController.edit);
+
+router.put(
+  "/jobs/:id/update",
+  jobController.update,
+  homeController.redirectView
+);
+
+router.delete(
+  "/jobs/:id/delete",
+  jobController.delete,
+  homeController.redirectView
+);
+
+router.post(
+  "/jobs/apply", 
+  userController.checkLoggedIn,
+  jobController.apply,
+);
+
+router.post(
+  "/events/attend", 
+  userController.checkLoggedIn,
+  eventController.attend,
+);
+
 router.get("/login", userController.login)
 
 router.post(
   "/users/login",
   userController.authenticate,
-  userController.redirectView
+  homeController.redirectView
 );
 
 router.get('/logout', userController.logout);
@@ -132,7 +166,7 @@ router.get("/users", userController.index, userController.indexView);
 
 router.get("/users/signup", userController.signup)
 
-router.post("/users/create", userController.create, userController.redirectView)
+router.post("/users/create", userController.create, homeController.redirectView)
 
 router.get("/users/:id", userController.show, userController.showView);
 
@@ -141,13 +175,13 @@ router.get("/users/:id/edit", userController.edit);
 router.put(
   "/users/:id/update",
   userController.update,
-  userController.redirectView
+  homeController.redirectView
 );
 
 router.delete(
   "/users/:id/delete",
   userController.delete,
-  userController.redirectView
+  homeController.redirectView
 );
 
 // error handler
