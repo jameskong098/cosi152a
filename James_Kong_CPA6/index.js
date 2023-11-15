@@ -78,113 +78,78 @@ const setUserLocals = (req, res, next) => {
   next();
 };
 
+// Middleware to set user locals
 router.use(setUserLocals);
 
-router.get("/", homeController.respondWithIndex);
+// Home Routes
+router.get("/", homeController.respondWithIndex); // Render the home page
 
-router.get("/index", homeController.respondWithIndex);
+router.get("/index", homeController.respondWithIndex); // Render the home page
 
-router.get("/about", homeController.respondWithAbout);
+router.get("/about", homeController.respondWithAbout); // Render the about page
 
-router.get("/contact", homeController.respondWithContact);
+router.get("/contact", homeController.respondWithContact); // Render the contact page
 
-router.get("/events", eventController.getEvents, homeController.redirectView);
 
-router.get("/events/create", userController.checkLoggedIn, eventController.create);
+// Event Routes
+router.get("/events", eventController.getEvents, homeController.redirectView); // Render events page
 
-router.post("/events/add", eventController.add, homeController.redirectView);
+router.get("/events/create", userController.checkLoggedIn, eventController.create); // Show create event page if user is logged in
 
-router.get("/events/:id", eventController.show, eventController.showView);
+router.post("/events/add", eventController.add, homeController.redirectView); // Add a new event
 
-router.get("/events/:id/edit", eventController.edit);
+router.get("/events/:id", eventController.show, eventController.showView); // Show details of a specific event
 
-router.put(
-  "/events/:id/update",
-  eventController.update,
-  homeController.redirectView
-);
+router.get("/events/:id/edit", eventController.edit); // Show edit page for a specific event
 
-router.delete(
-  "/events/:id/delete",
-  eventController.delete,
-  homeController.redirectView
-);
+router.put("/events/:id/update", eventController.update, homeController.redirectView); // Update a specific event to database
 
-router.post(
-  "/attend", 
-  userController.checkLoggedIn,
-  eventController.attend,
-);
+router.delete("/events/:id/delete", eventController.delete, homeController.redirectView); // Delete a specific event frrom database
 
-router.get("/jobs", jobController.getJobs);
+router.post("/events/attend", userController.checkLoggedIn, eventController.attend); // Attend an event if user is logged in (adds to attendees array in database)
 
-router.get("/jobs", jobController.getJobs, homeController.redirectView);
 
-router.get("/jobs/create", userController.checkLoggedIn, jobController.create);
+// Job Routes
+router.get("/jobs", jobController.getJobs); // Render jobs page
 
-router.post("/jobs/add", jobController.add, homeController.redirectView);
+router.get("/jobs/create", userController.checkLoggedIn, jobController.create); // Show create job page if user is logged in
 
-router.get("/jobs/:id", jobController.show, jobController.showView);
+router.post("/jobs/add", jobController.add, homeController.redirectView); // Add a new job
 
-router.get("/jobs/:id/edit", jobController.edit);
+router.get("/jobs/:id", jobController.show, jobController.showView); // Show details of a specific job
 
-router.put(
-  "/jobs/:id/update",
-  jobController.update,
-  homeController.redirectView
-);
+router.get("/jobs/:id/edit", jobController.edit); // Show edit page for a specific job
 
-router.delete(
-  "/jobs/:id/delete",
-  jobController.delete,
-  homeController.redirectView
-);
+router.put("/jobs/:id/update", jobController.update, homeController.redirectView); // Update a specific job to database
 
-router.post(
-  "/jobs/apply", 
-  userController.checkLoggedIn,
-  jobController.apply,
-);
+router.delete("/jobs/:id/delete", jobController.delete, homeController.redirectView); // Delete a specific job from database
 
-router.post(
-  "/events/attend", 
-  userController.checkLoggedIn,
-  eventController.attend,
-);
+router.post("/jobs/apply", userController.checkLoggedIn, jobController.apply); // Apply for a job if user is logged in (adds to applicants array in database)
 
-router.get("/login", userController.login)
 
-router.post(
-  "/users/login",
-  userController.authenticate,
-  homeController.redirectView
-);
+// User Routes
+router.get("/login", userController.login); // Render the login page
 
-router.get('/logout', userController.logout);
+router.post("/users/login", userController.authenticate, homeController.redirectView); // Authenticate user login
 
-router.get("/users", userController.index, userController.indexView);
+router.get('/logout', userController.logout); // Log out the user
 
-router.get("/users/signup", userController.signup)
+router.get("/users", userController.index, userController.indexView); // Render the users page
 
-router.post("/users/create", userController.create, homeController.redirectView)
+router.get("/users/signup", userController.signup); // Render the signup page
 
-router.get("/users/:id", userController.show, userController.showView);
+router.post("/users/create", userController.create, homeController.redirectView); // Create a new user
 
-router.get("/users/:id/edit", userController.edit);
+router.get("/users/:id", userController.show, userController.showView); // Show details of a specific user
 
-router.put(
-  "/users/:id/update",
-  userController.update,
-  homeController.redirectView
-);
+router.get("/users/:id/edit", userController.edit); // Show edit page for a specific user
 
-router.delete(
-  "/users/:id/delete",
-  userController.delete,
-  homeController.redirectView
-);
+router.put("/users/:id/update", userController.update, homeController.redirectView); // Update a specific user to database
 
-// error handler
+router.delete("/users/:id/delete", userController.delete, homeController.redirectView); // Delete a specific user from database
+
+
+// Error handlers
 router.use(errorController.pageNotFoundError);
 router.use(errorController.internalServerError);
 

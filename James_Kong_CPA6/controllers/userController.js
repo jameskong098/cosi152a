@@ -1,6 +1,7 @@
 const User = require("../models/user");
 
 const getUserParams = (body) => {
+  // Extract info from form and set to object fields
   return {
     name: `${body.first} ${body.last}`,
     email: body.email,
@@ -21,6 +22,7 @@ const getUserParams = (body) => {
 
 module.exports = {
   index: (req, res, next) => {
+    // Obtain info for user from database
     User.find()
       .then((users) => {
         res.locals.users = users;
@@ -32,12 +34,15 @@ module.exports = {
       });
   },
   indexView: (req, res) => {
+    // Show view for all users
     res.render("users/index");
   },
   signup: (req, res) => {
+    // Show signup page
     res.render("users/signup");
   },
   create: (req, res, next) => {
+    // Get input info from signup page and add to database
     let userParams = getUserParams(req.body);
     User.create(userParams)
       .then((user) => {
@@ -60,6 +65,7 @@ module.exports = {
       });
   },
   show: (req, res, next) => {
+    // Get info for individual user
     let userId = req.params.id;
     User.findById(userId)
       .then((user) => {
@@ -72,9 +78,11 @@ module.exports = {
       });
   },
   showView: (req, res) => {
+    // Show all users
     res.render("users/show");
   },
   edit: (req, res, next) => {
+    // Edit currently selected user
     let userId = req.params.id;
     User.findById(userId)
       .then((user) => {
@@ -88,6 +96,7 @@ module.exports = {
       });
   },
   update: (req, res, next) => {
+    // Send edited user info to database
     let userId = req.params.id,
       userParams = getUserParams(req.body);
     User.findByIdAndUpdate(userId, {
@@ -96,29 +105,36 @@ module.exports = {
       .then((user) => {
         res.locals.redirect = `/users/${userId}`;
         res.locals.user = user;
+        req.flash("success", `You have successfully updated your user information!`);
         next();
       })
       .catch((error) => {
         console.log(`Error updating user by ID: ${error.message}`);
+        req.flash("error", `Something went wrong updating your user information! Please try again!`);
         next(error);
       });
   },
   delete: (req, res, next) => {
+    // Delete user from database
     let userId = req.params.id;
     User.findByIdAndRemove(userId)
       .then(() => {
         res.locals.redirect = "/users";
+        req.flash("success", `You have successfully deleted the user!`);
         next();
       })
       .catch((error) => {
         console.log(`Error deleting user by ID: ${error.message}`);
+        req.flash("error", `Something went wrong deleting the user! Please try again!`);
         next();
       });
   },
   login: (req, res) => {
+    // Show view for login page
     res.render("users/login");
   },
   logout: (req, res) => {
+    // Log out user account
     req.session.destroy(err => {
       if (err) {
         console.error('Error destroying session:', err);
@@ -128,6 +144,7 @@ module.exports = {
     });
   },
   authenticate: (req, res, next) => {
+    // Authenticate user credentials and redirect to appropriate pages
     User.findOne({
       email: req.body.email,
     })
@@ -153,6 +170,7 @@ module.exports = {
       });
   },
   checkLoggedIn: (req, res, next) => {
+    // Verify if the user is logged in or not 
     if (!req.session || !req.session.user) {
       req.session.prevURL = req.originalUrl
       res.redirect("/login")

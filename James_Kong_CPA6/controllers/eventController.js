@@ -1,6 +1,7 @@
 const Event = require("../models/event");
 
 const getEventParams = (body) => {
+  // Extract info from form and set to object fields
   return {
     title: body.title,
     description: body.description,
@@ -22,6 +23,7 @@ module.exports = {
    
   },
   show: (req, res, next) => {
+    // Get info for individual event
     let eventId = req.params.id;
     Event.findById(eventId)
       .then((event) => {
@@ -34,12 +36,15 @@ module.exports = {
       });
   },
   showView: (req, res) => {
+    // Show individual event page
     res.render("events/show");
   },
   create: (req, res) => {
+    // Show page for creating an event
     res.render("events/create")
   },
   add: (req, res, next) => {
+    // Get input info from create page and add to database
     let eventParams = getEventParams(req.body);
     eventParams.organizer = req.session.user._id
     Event.create(eventParams)
@@ -63,6 +68,7 @@ module.exports = {
       });
   },
   edit: (req, res, next) => {
+    // Edit currently selected event
     let eventId = req.params.id;
     Event.findById(eventId)
       .then((event) => {
@@ -76,6 +82,7 @@ module.exports = {
       });
   },
   update: (req, res, next) => {
+    // Send edited event info to database
     let eventId = req.params.id,
       eventParams = getEventParams(req.body);
     Event.findByIdAndUpdate(eventId, {
@@ -84,22 +91,27 @@ module.exports = {
       .then((events) => {
         res.locals.redirect = `/events/${eventId}`;
         res.locals.events = events;
+        req.flash("success", `You have successfully updated the event!`);
         next();
       })
       .catch((error) => {
         console.log(`Error updating event by ID: ${error.message}`);
+        req.flash("error", `Something went wrong updating your event! Please try again!`);
         next(error);
       });
   },
   delete: (req, res, next) => {
+    // Delete event from database
     let eventId = req.params.id;
     Event.findByIdAndRemove(eventId)
       .then(() => {
         res.locals.redirect = "/events";
+        req.flash("success", `You have successfully deleted the event!`);
         next();
       })
       .catch((error) => {
         console.log(`Error deleting event by ID: ${error.message}`);
+        req.flash("error", `Something went wrong deleting your event! Please try again!`);
         next();
       });
   },

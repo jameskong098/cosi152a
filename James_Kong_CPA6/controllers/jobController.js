@@ -1,6 +1,7 @@
 const Job = require("../models/job");
 
 const getJobParams = (body) => {
+  // Extract info from form and set to object fields
   return {
     title: body.title,
     company: body.company,
@@ -30,6 +31,7 @@ module.exports = {
     }
   },
   show: (req, res, next) => {
+    // Get info for individual job
     let jobId = req.params.id;
     Job.findById(jobId)
       .then((job) => {
@@ -42,12 +44,15 @@ module.exports = {
       });
   },
   showView: (req, res) => {
+    // Show individual job page
     res.render("jobs/show");
   },
   create: (req, res) => {
+    // Show page for creating a job
     res.render("jobs/create");
   },
   add: (req, res, next) => {
+    // Get input info from create page and add to database
     let jobParams = getJobParams(req.body);
     jobParams.organizer = req.session.user._id;
 
@@ -66,6 +71,7 @@ module.exports = {
       });
   },
   edit: (req, res, next) => {
+    // Edit currently selected job
     let jobId = req.params.id;
     Job.findById(jobId)
       .then((job) => {
@@ -79,6 +85,7 @@ module.exports = {
       });
   },
   update: (req, res, next) => {
+    // Send edited job info to database
     let jobId = req.params.id,
       jobParams = getJobParams(req.body);
 
@@ -88,27 +95,32 @@ module.exports = {
       .then((job) => {
         res.locals.redirect = `/jobs/${jobId}`;
         res.locals.job = job;
+        req.flash("success", `You have successfully updated the job!`);
         next();
       })
       .catch((error) => {
         console.log(`Error updating job by ID: ${error.message}`);
+        req.flash("error", `Something went wrong updating the job! Please try again!`);
         next(error);
       });
   },
   delete: (req, res, next) => {
+    // Delete job from database
     let jobId = req.params.id;
     Job.findByIdAndRemove(jobId)
       .then(() => {
         res.locals.redirect = "/jobs";
+        req.flash("success", `You have successfully deleted the job!`);
         next();
       })
       .catch((error) => {
         console.log(`Error deleting job by ID: ${error.message}`);
+        req.flash("error", `Something went wrong deleting the job! Please try again!`);
         next(error);
       });
   },
   apply: async (req, res, next) => {
-    // Find the job by ID
+    // Find the job by id
     const job = await Job.findById(req.body.job_id);
 
     if (!job) {
