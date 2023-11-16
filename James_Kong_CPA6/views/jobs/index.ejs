@@ -15,8 +15,8 @@
               <p>Contact Email: <%= job.contactEmail %></p>
               <p>Contact Phone: <%= job.contactPhone %></p>
               <p>Date: <%= job.postDate.toDateString() %> - <%= job.deadlineDate.toDateString() %></p>
-              <form action="/jobs/apply" method="post">
-                <input type="hidden" name="job_id" value="<%= job._id %>">
+              <form action="<%=`/jobs/apply?_method=PUT`%>" method="POST">
+                <input type="hidden" name="object_id" value="<%= job._id %>">
                 <button type="submit">Apply Now</button>
               </form>
               <a href="<%=`/jobs/${job._id}`%>">View Details</a>

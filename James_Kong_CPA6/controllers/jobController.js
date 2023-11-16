@@ -120,8 +120,12 @@ module.exports = {
       });
   },
   apply: async (req, res, next) => {
+    // If user is not logged in and is applying then use req.session.originalObjectID after logging in otherwise if logged in
+    // use req.body.job_id
+    const job_id = !req.session.originalObjectID ? req.body.job_id : req.session.originalObjectID
+
     // Find the job by id
-    const job = await Job.findById(req.body.job_id);
+    const job = await Job.findById(job_id);
 
     if (!job) {
       req.flash("error", `${req.body.job_id} was not found!`);
@@ -133,17 +137,16 @@ module.exports = {
     if (job.applicants.includes(req.session.user._id)) {
       req.flash("error", `You have already applied for this job!`);
       res.redirect("/jobs");
-      return;
+    } else {
+        // Update the applicants field
+        job.applicants.push(req.session.user._id);
+
+        // Save the updated job
+        await job.save();
+
+        // Respond with success message or other relevant information
+        req.flash("success", `${req.session.user.name} has successfully applied for the job!`);
+        res.redirect("/jobs");
     }
-
-    // Update the applicants field
-    job.applicants.push(req.session.user._id);
-
-    // Save the updated job
-    await job.save();
-
-    // Respond with success message or other relevant information
-    req.flash("success", `${req.session.user.name} has successfully applied for the job!`);
-    res.redirect("/jobs");
   },
 };

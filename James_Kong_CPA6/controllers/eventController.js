@@ -116,11 +116,14 @@ module.exports = {
       });
   },
   attend: async (req, res, next) => {
-    // Find the event by registrationLink
-    const event = await Event.findOne({ id: req.body.event_id });
+    // If user is not logged in and is attending then use req.session.originalObjectID after logging in otherwise if logged in
+    // use req.body.event_id
+    const event_id = !req.session.originalObjectID ? req.body.event_id : req.session.originalObjectID
 
+    // Find the event by id
+    const event = await Event.findById(event_id);
     if (!event) {
-      req.flash("error", `${req.body.event_registrationLink} was not found!`);
+      req.flash("error", `${req.body.event_id} was not found!`);
       next();
       return
     }
@@ -129,17 +132,16 @@ module.exports = {
     if (event.attendees.includes(req.session.user._id)) {
       req.flash("error", `You have already registered for this event!`);
       res.redirect("/events")
-      return
+    } else {
+        // Update the attendees field
+        event.attendees.push(req.session.user._id);
+        
+        // Save the updated event
+        await event.save();
+
+        // Respond with success message or other relevant information
+        req.flash("success", `${req.session.user.name} has successfully registered for the event!`);
+        res.redirect("/events")
     }
-
-    // Update the attendees field
-    event.attendees.push(req.session.user._id);
-    
-    // Save the updated event
-    await event.save();
-
-    // Respond with success message or other relevant information
-    req.flash("success", `${req.session.user.name}'s has successfully registered for the event!`);
-    res.redirect("/events")
   },
 };

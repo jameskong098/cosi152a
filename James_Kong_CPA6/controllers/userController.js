@@ -151,9 +151,9 @@ module.exports = {
       .then((user) => {
         if (user && user.password === req.body.password) {
           res.locals.redirect = !req.session.prevURL ? `/users/${user._id}` : req.session.prevURL;
-          req.flash("success", `Welcome ${user.name}! You have logged in successfully!`);
           req.session.user = user;
           res.locals.user = user;
+          req.flash("success", `Welcome ${user.name}! You have logged in successfully!`);
           next();
         } else {
             req.flash(
@@ -173,6 +173,7 @@ module.exports = {
     // Verify if the user is logged in or not 
     if (!req.session || !req.session.user) {
       req.session.prevURL = req.originalUrl
+      req.session.originalObjectID = req.body.object_id
       res.redirect("/login")
     } else {
       next();

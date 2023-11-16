@@ -106,11 +106,11 @@ router.put("/events/:id/update", eventController.update, homeController.redirect
 
 router.delete("/events/:id/delete", eventController.delete, homeController.redirectView); // Delete a specific event frrom database
 
-router.post("/events/attend", userController.checkLoggedIn, eventController.attend); // Attend an event if user is logged in (adds to attendees array in database)
+router.put("/events/attend", userController.checkLoggedIn, eventController.attend); // Attend an event if user is logged in (adds to attendees array in database)
 
 
 // Job Routes
-router.get("/jobs", jobController.getJobs); // Render jobs page
+router.get("/jobs", jobController.getJobs, homeController.redirectView); // Render jobs page
 
 router.get("/jobs/create", userController.checkLoggedIn, jobController.create); // Show create job page if user is logged in
 
@@ -124,7 +124,7 @@ router.put("/jobs/:id/update", jobController.update, homeController.redirectView
 
 router.delete("/jobs/:id/delete", jobController.delete, homeController.redirectView); // Delete a specific job from database
 
-router.post("/jobs/apply", userController.checkLoggedIn, jobController.apply); // Apply for a job if user is logged in (adds to applicants array in database)
+router.put("/jobs/apply", userController.checkLoggedIn, jobController.apply); // Apply for a job if user is logged in (adds to applicants array in database)
 
 
 // User Routes

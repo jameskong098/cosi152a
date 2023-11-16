@@ -11,8 +11,8 @@
               <p>Description: <%= event.description %></p>
               <p>Location: <%= event.location %></p>
               <p>Date: <%= event.startDate.toDateString() %> - <%= event.endDate.toDateString() %></p>
-              <form action="/events/attend" method="post">
-                <input type="hidden" name="event_id" value="<%= event._id %>">
+              <form action="<%=`/events/attend?_method=PUT`%>" method="POST">
+                <input type="hidden" name="object_id" value="<%= event._id %>">
                 <button type="submit">Register Now</button>
               </form>
               <a href="<%=`/events/${event._id}`%>">View Details</a>
