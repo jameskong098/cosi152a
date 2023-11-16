@@ -91,7 +91,7 @@
             type="checkbox"
             name="isActive"
             id="inputIsActive"
-            value="<%= job.isActive ? 'checked' : '' %>"
+            <%= event.isActive == true ? 'checked' : '' %>
         />
         <button type="submit">Update</button>
     </form>

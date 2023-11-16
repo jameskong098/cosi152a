@@ -48,7 +48,7 @@
             type="checkbox"
             name="isOnline"
             id="inputIsOnline"
-            value="<%= event.isOnline == 'on' ? true : false %>"
+            <%= event.isOnline == true ? 'checked' : '' %>
         />
         <label for="inputRegistrationLink">Registration Link</label>
         <input
