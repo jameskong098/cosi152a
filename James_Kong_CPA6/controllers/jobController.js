@@ -122,7 +122,8 @@ module.exports = {
   apply: async (req, res, next) => {
     // If user is not logged in and is applying then use req.session.originalObjectID after logging in otherwise if logged in
     // use req.body.job_id
-    const job_id = !req.session.originalObjectID ? req.body.job_id : req.session.originalObjectID
+    const job_id = !req.session.originalObjectID ? req.body.object_id : req.session.originalObjectID
+    req.session.originalObjectID = undefined
 
     // Find the job by id
     const job = await Job.findById(job_id);

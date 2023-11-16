@@ -118,8 +118,9 @@ module.exports = {
   attend: async (req, res, next) => {
     // If user is not logged in and is attending then use req.session.originalObjectID after logging in otherwise if logged in
     // use req.body.event_id
-    const event_id = !req.session.originalObjectID ? req.body.event_id : req.session.originalObjectID
-
+    const event_id = !req.session.originalObjectID ? req.body.object_id : req.session.originalObjectID
+    req.session.originalObjectID = undefined
+    
     // Find the event by id
     const event = await Event.findById(event_id);
     if (!event) {

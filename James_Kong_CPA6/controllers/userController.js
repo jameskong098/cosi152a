@@ -3,7 +3,7 @@ const User = require("../models/user");
 const getUserParams = (body) => {
   // Extract info from form and set to object fields
   return {
-    name: `${body.first} ${body.last}`,
+    name: body.name,
     email: body.email,
     password: body.password,
     graduationYear: body.graduationYear,
