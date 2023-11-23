@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Brandeis Alumni Association</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <link rel="icon" type="images/x-icon" href="/images/favicon-16x16.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="author" content="James Kong">
+        <meta name="keywords" content="Brandeis, Alumni, Association">
+        <meta name="description" content="Brandeis Alumni and friends official website."/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav>
+            <a class="nav_items" href="/index">Home</a>
+            <a class="nav_items" href="/about">About</a>
+            <a class="nav_items" href="/jobs">Jobs</a>
+            <a class="nav_items" href="/events">Events</a>
+            <a class="nav_items" href="/contact">Contact</a>
+            <% if (!user) { %>
+                <a class="nav_items" href="/login">Login</a>
+            <% } else { %>
+                <a class="nav_items" href="<%=`/users/${user._id}`%>">Profile</a>
+                <a class="nav_items" href="/logout">Logout</a>
+            <% } %>
+        </nav>
+        <header>
+            <image src="/images/BrandeisLogo.png" id="brandeis_logo" alt="Brandeis Logo"/>
+            <div id="header_text">
+                <p>Students & Alumni Association</p>
+            </div>
+        </header>
+        <div class="flashes">
+            <% if (flashMessages) { %> <% if (flashMessages.success) { %>
+            <div class="flash success"><%= flashMessages.success %></div>
+            <% } else if (flashMessages.error) { %>
+            <div class="flash error"><%= flashMessages.error %></div>
+            <% } %> <% } %>
+        </div>
+        <%- body %>
+        <footer>
+            <p>© 2024 Brandeis University | All Rights Reserved</p>
+            <a href="https://www.facebook.com/BrandeisUAlumni" class="fa fa-facebook social_button"></a>
+            <a href="https://www.instagram.com/brandeisualumni/" class="fa fa-instagram social_button"></a>
+            <a href="https://www.linkedin.com/school/brandeis-university/mycompany/verification/" class="fa fa-linkedin social_button"></a>
+            <a href="https://www.youtube.com/c/BrandeisUniversityAlumniAssociation" class="fa fa-youtube social_button"></a>
+            <a href="https://twitter.com/brandeisualumni" class="fa fa-twitter social_button"></a>
+        </footer>
+    </body>
+</html>

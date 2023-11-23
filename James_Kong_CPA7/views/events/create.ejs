@@ -1,0 +1,61 @@
+<div class="data-form">
+    <form method="POST" action="/events/add">
+        <h2>Create Event:</h2>
+        <label for="inputTitle">Event Title</label>
+        <input
+            type="text"
+            name="title"
+            id="inputTitle"
+            placeholder="Event Title"
+            autofocus
+        />
+        <label for="inputDescription">Event Description</label>
+        <textarea
+            name="description"
+            id="inputDescription"
+            placeholder="Event Description"
+            required
+        >
+        </textarea>
+        <label for="inputLocation">Event Location</label>
+        <input
+            type="text"
+            name="location"
+            id="inputLocation"
+            placeholder="Event Location"
+            required
+        />
+        <label for="inputStartDate">Start Date</label>
+        <input
+            type="datetime-local"
+            name="startDate"
+            id="inputStartDate"
+            required
+        />
+        <label for="inputEndDate">End Date</label>
+        <input
+            type="datetime-local"
+            name="endDate"
+            id="inputEndDate"
+            required
+        />
+        <label for="inputIsOnline">Is Online?</label>
+        <input
+            type="checkbox"
+            name="isOnline"
+            id="inputIsOnline"
+        />
+        <label for="inputRegistrationLink">Registration Link</label>
+        <input
+            type="text"
+            name="registrationLink"
+            id="inputRegistrationLink"
+            placeholder="Registration Link"
+        />
+      <button type="submit">Submit</button>
+    </form>
+    <div>
+        <a href="<%= '/events'%>">Back to Events</a>
+    </div>
+  </div>
+  
