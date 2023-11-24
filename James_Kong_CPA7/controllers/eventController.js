@@ -46,7 +46,7 @@ module.exports = {
   add: (req, res, next) => {
     // Get input info from create page and add to database
     let eventParams = getEventParams(req.body);
-    eventParams.organizer = req.session.user._id
+    eventParams.organizer = res.locals.currentUser._id
     Event.create(eventParams)
       .then((event) => {
         req.flash(
@@ -130,19 +130,40 @@ module.exports = {
     }
 
     // Check if the user is already attending
-    if (event.attendees.includes(req.session.user._id)) {
+    if (event.attendees.includes(res.locals.currentUser._id)) {
       req.flash("error", `You have already registered for this event!`);
       res.redirect("/events")
     } else {
         // Update the attendees field
-        event.attendees.push(req.session.user._id);
+        event.attendees.push(res.locals.currentUser._id);
         
         // Save the updated event
         await event.save();
 
         // Respond with success message or other relevant information
-        req.flash("success", `${req.session.user.name} has successfully registered for the event!`);
+        req.flash("success", `${res.locals.currentUser.name} has successfully registered for the event!`);
         res.redirect("/events")
     }
   },
+  validate: (req, res, next) => {
+    // Validation middleware for /events/add
+    req.check("title", "Event Title is required").notEmpty();
+    req.check("description", "Event Description is required").notEmpty();
+    req.check("location", "Event Location is required").notEmpty();
+    req.check("startDate", "Start Date is required").notEmpty();
+    req.check("endDate", "End Date is required").notEmpty();
+    req.check("registrationLink", "Registration Link is required").optional().isURL();
+    
+    req.getValidationResult().then((error) => {
+      if (!error.isEmpty()) {
+        let messages = error.array().map((e) => e.msg);
+        req.skip = true;
+        req.flash("error", messages.join(" and "));
+        res.locals.redirect = "/events/add";
+        next();
+      } else {
+        next();
+      }
+    });
+  }
 };

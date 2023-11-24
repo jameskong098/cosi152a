@@ -304,6 +304,9 @@ background-color: #f44336; /* Red */
     align-items: center;
 }
   
+#welcome_text {
+    text-align: center;
+}
 
 @media screen and (max-width: 1199px) {
     #header_text {

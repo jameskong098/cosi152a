@@ -4,38 +4,36 @@ const Job = require('./models/job')
 
 // Function to add a sample user to the database
 const addSampleUserToDatabase = async () => {
-    const sampleUser = {
-      name: "John Doe",
-      email: "john.doe@example.com",
-      password: "securepassword",
-      role: "alumni",
-      graduationYear: 2020,
-      major: "Computer Science",
-      job: "Software Engineer",
-      company: "TechCo",
-      city: "San Francisco",
-      state: "CA",
-      country: "USA",
-      zipCode: 94105,
-      bio: "Passionate about technology and innovation.",
-      interests: ["Programming", "Machine Learning"],
-    };
-  
-    try {
-      // Check if the user already exists by email
-      const existingUser = await User.findOne({ email: sampleUser.email });
-  
-      if (!existingUser) {
-        // User does not exist, create a new one
-        const newUser = new User(sampleUser);
-        await newUser.save();
-        console.log("Sample user added to the database successfully!");
-      } else {
-        console.log(`User with email '${sampleUser.email}' already exists. Skipping.`);
-      }
-    } catch (error) {
-      console.error("Error adding sample user to the database:", error);
+  const sampleUser = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    password: "securepassword",
+    role: "alumni",
+    graduationYear: 2020,
+    major: "Computer Science",
+    job: "Software Engineer",
+    company: "TechCo",
+    city: "San Francisco",
+    state: "CA",
+    country: "USA",
+    zipCode: 94105,
+    bio: "Passionate about technology and innovation.",
+    interests: ["Programming", "Machine Learning"],
+  };
+
+  try {
+    // Check if the user already exists by email
+    const existingUser = await User.findOne({ email: sampleUser.email });
+
+    if (!existingUser) {
+      await User.register(new User(sampleUser), sampleUser.password);
+      console.log("Sample user added to the database successfully!");
+    } else {
+      console.log(`User with email '${sampleUser.email}' already exists. Skipping.`);
     }
+  } catch (error) {
+    console.error("Error adding sample user to the database:", error);
+  }
 };
 
 module.exports = {

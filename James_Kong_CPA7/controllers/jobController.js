@@ -54,7 +54,7 @@ module.exports = {
   add: (req, res, next) => {
     // Get input info from create page and add to database
     let jobParams = getJobParams(req.body);
-    jobParams.organizer = req.session.user._id;
+    jobParams.organizer = res.locals.currentUser._id;
 
     Job.create(jobParams)
       .then((job) => {
@@ -135,19 +135,44 @@ module.exports = {
     }
 
     // Check if the user has already applied
-    if (job.applicants.includes(req.session.user._id)) {
+    if (job.applicants.includes(res.locals.currentUser._id)) {
       req.flash("error", `You have already applied for this job!`);
       res.redirect("/jobs");
     } else {
         // Update the applicants field
-        job.applicants.push(req.session.user._id);
+        job.applicants.push(res.locals.currentUser._id);
 
         // Save the updated job
         await job.save();
 
         // Respond with success message or other relevant information
-        req.flash("success", `${req.session.user.name} has successfully applied for the job!`);
+        req.flash("success", `${res.locals.currentUser.name} has successfully applied for the job!`);
         res.redirect("/jobs");
     }
   },
+  validate: (req, res, next) => {
+    // Validation middleware for /jobs/add
+    req.check("title", "Job Title is required").notEmpty();
+    req.check("company", "Company is required").notEmpty();
+    req.check("location", "Job Location is required").notEmpty();
+    req.check("description", "Job Description is required").notEmpty();
+    req.check("requirements", "Job Requirements is required").notEmpty();
+    req.check("salary", "Salary is required").notEmpty().isNumeric();
+    req.check("contactEmail", "Valid Contact Email is required").notEmpty().isEmail();
+    req.check("contactPhone", "Contact Phone is required").notEmpty();
+    req.check("postDate", "Post Date is required").notEmpty();
+    req.check("deadlineDate", "Deadline Date is required").notEmpty();
+    
+    req.getValidationResult().then((error) => {
+      if (!error.isEmpty()) {
+        let messages = error.array().map((e) => e.msg);
+        req.skip = true;
+        req.flash("error", messages.join(" and "));
+        res.locals.redirect = "/jobs/add";
+        next();
+      } else {
+        next();
+      }
+    });
+  }
 };

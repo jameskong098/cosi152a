@@ -17,11 +17,12 @@
             <a class="nav_items" href="/jobs">Jobs</a>
             <a class="nav_items" href="/events">Events</a>
             <a class="nav_items" href="/contact">Contact</a>
-            <% if (!user) { %>
-                <a class="nav_items" href="/login">Login</a>
+            <% if (!loggedIn) { %>
+                <a class="nav_items" href="/users/login">Login</a>
+                <a class="nav_items" href="/users/signup">Signup</a>
             <% } else { %>
-                <a class="nav_items" href="<%=`/users/${user._id}`%>">Profile</a>
-                <a class="nav_items" href="/logout">Logout</a>
+                <a class="nav_items" href="<%=`/users/${currentUser._id}`%>">Profile</a>
+                <a class="nav_items" href="/users/logout">Logout</a>
             <% } %>
         </nav>
         <header>
@@ -30,6 +31,9 @@
                 <p>Students & Alumni Association</p>
             </div>
         </header>
+        <% if (loggedIn) { %>
+            <p id="welcome_text">Welcome, <a href="<%=`/users/${currentUser._id}`%>"><%= currentUser.name %></a></p>
+         <%}%>
         <div class="flashes">
             <% if (flashMessages) { %> <% if (flashMessages.success) { %>
             <div class="flash success"><%= flashMessages.success %></div>

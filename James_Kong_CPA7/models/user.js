@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose"); 
 
 // Define the schema for the User model
 const userSchema = mongoose.Schema({
@@ -17,6 +18,8 @@ const userSchema = mongoose.Schema({
     bio: { type: String }, // User's biography (optional)
     interests: [{ type: String }] // Array of user's interests (optional)
 });
+
+userSchema.plugin(passportLocalMongoose, {usernameField: "email"});
 
 // Define a method to get basic information about the user
 userSchema.methods.getInfo = function () {

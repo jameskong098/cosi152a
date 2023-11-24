@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const passport = require("passport");
 
 const getUserParams = (body) => {
   // Extract info from form and set to object fields
@@ -43,26 +44,25 @@ module.exports = {
   },
   create: (req, res, next) => {
     // Get input info from signup page and add to database
-    let userParams = getUserParams(req.body);
-    User.create(userParams)
-      .then((user) => {
+    if (req.skip) next();
+    let newUser = new User(getUserParams(req.body));
+    User.register(newUser, req.body.password, (error, user) => {
+      if (user) {
         req.flash(
           "success",
           `${user.name}'s account created successfully!`
         );
         res.locals.redirect = "/users";
-        res.locals.user = user;
         next();
-      })
-      .catch((error) => {
-        console.log(`Error saving user: ${error.message}`);
+      } else {
         req.flash(
           "error",
-          `Failed to create user account because: ${error.message}.`
+          `Failed to create user account because:${error.message}.`
         );
         res.locals.redirect = "/users/new";
         next();
-      });
+      }
+    });
   },
   show: (req, res, next) => {
     // Get info for individual user
@@ -73,7 +73,7 @@ module.exports = {
         next();
       })
       .catch((error) => {
-        console.log(`Error fetching user by ID: ${error.message}`);
+        console.log(`POOP Error fetching user by ID: ${error.message}`);
         next(error);
       });
   },
@@ -133,48 +133,59 @@ module.exports = {
     // Show view for login page
     res.render("users/login");
   },
-  logout: (req, res) => {
-    // Log out user account
-    req.session.destroy(err => {
+  authenticate: 
+    passport.authenticate("local", {
+      failureRedirect: "/users/login",
+      successFlash: "Welcome!",
+      failureFlash: "Your account or password is incorrect. Please try again or contact your system administrator!",
+      successRedirect: "/"
+    }),
+  logout: (req, res, next) => {
+    req.logout(function (err) {
       if (err) {
-        console.error('Error destroying session:', err);
+        return next(err);
+      }
+      req.flash("success", "You have been logged out!");
+      res.locals.redirect = "/";
+      next();
+    });
+  },
+  validate: (req, res, next) => {
+    req
+      .sanitizeBody("email")
+      .normalizeEmail({
+        all_lowercase: true,
+      })
+      .trim();
+    req.check("email", "Email is invalid").isEmail();
+    req
+      .check("zipCode", "Zip code is invalid")
+      .notEmpty()
+      .isInt()
+      .isLength({
+        min: 5,
+        max: 5,
+      })
+      .equals(req.body.zipCode);
+    req.check("password", "Password cannot be empty").notEmpty();
+    req.getValidationResult().then((error) => {
+      if (!error.isEmpty()) {
+        let messages = error.array().map((e) => e.msg);
+        req.skip = true;
+        req.flash("error", messages.join(" and "));
+        res.locals.redirect = "/users/new";
+        next();
       } else {
-          res.redirect('/');
+        next();
       }
     });
   },
-  authenticate: (req, res, next) => {
-    // Authenticate user credentials and redirect to appropriate pages
-    User.findOne({
-      email: req.body.email,
-    })
-      .then((user) => {
-        if (user && user.password === req.body.password) {
-          res.locals.redirect = !req.session.prevURL ? `/users/${user._id}` : req.session.prevURL;
-          req.session.user = user;
-          res.locals.user = user;
-          req.flash("success", `Welcome ${user.name}! You have logged in successfully!`);
-          next();
-        } else {
-            req.flash(
-              "error",
-              "Your account or password is incorrect. Please try again or contact your system administrator!"
-            );
-            res.locals.redirect = "/login";
-            next();
-        }
-      })
-      .catch((error) => {
-        console.log(`Error logging in user: ${error.message}`);
-        next(error);
-      });
-  },
   checkLoggedIn: (req, res, next) => {
     // Verify if the user is logged in or not 
-    if (!req.session || !req.session.user) {
+    if (!res.locals.loggedIn) {
       req.session.prevURL = req.originalUrl
       req.session.originalObjectID = req.body.object_id
-      res.redirect("/login")
+      res.redirect("/users/login")
     } else {
       next();
     }
