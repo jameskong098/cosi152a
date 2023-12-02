@@ -1,0 +1,20 @@
+<html>
+  <body>
+    <section class="main_content">
+      <article class="main_text">
+        <h2 id="job_op">Job Opportunities</h2>
+        <ul>
+          <% jobs.forEach(job => { %>
+            <li>
+              <h3><%= job.title %></h3>
+              <p>Description: <%= job.description %></p>
+              <p>Location: <%= job.location %></p>
+              <p>Posted on: <%= job.postDate.toDateString() %></p>
+              <a href="<%= job.applyLink %>">Apply Now</a>
+            </li>
+          <% }); %>
+        </ul>
+      </article>
+    </section>
+  </body>
+</html>

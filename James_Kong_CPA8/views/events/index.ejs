@@ -1,0 +1,25 @@
+<html>
+  <body>
+    <section class="main_content">
+      <article class="main_text">
+        <h2 id="job_op">Event Listings</h2>
+        <a class="add" href="<%=`/events/create`%>">Add Event</a>
+        <ul>
+          <% events.forEach(event => { %>
+            <li>
+              <h3><%= event.title %></h3>
+              <p>Description: <%= event.description %></p>
+              <p>Location: <%= event.location %></p>
+              <p>Date: <%= event.startDate.toDateString() %> - <%= event.endDate.toDateString() %></p>
+              <form action="<%=`/events/attend?_method=PUT`%>" method="POST">
+                <input type="hidden" name="object_id" value="<%= event._id %>">
+                <button type="submit">Register Now</button>
+              </form>
+              <a href="<%=`/events/${event._id}`%>">View Details</a>
+            </li>
+          <% }); %>
+        </ul>
+      </article>
+    </section>
+  </body>
+</html>
