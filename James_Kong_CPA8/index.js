@@ -30,7 +30,7 @@ app.listen(app.get("port"), async () => {
 });
 
 // Set-up MongoDB connection
-var address = process.env.DB_ADDRESS || "mongodb://localhost:27017/brandeis_saa";
+var address = process.env.DB_ADDRESS || "mongodb://127.0.0.1:27017/brandeis_saa";
 mongoose.connect(address);
 const db = mongoose.connection;
 db.once("open", () => {

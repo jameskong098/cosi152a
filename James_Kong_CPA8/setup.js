@@ -17,6 +17,7 @@ const sampleUser_1 = {
   zipCode: 94105,
   bio: "Passionate about technology and innovation.",
   interests: ["Programming", "Machine Learning"],
+  isAdmin: false
 };
 
 const sampleUser_2 = {
@@ -34,6 +35,7 @@ const sampleUser_2 = {
   zipCode: 21231,
   bio: "Passionate biology",
   interests: ["Biology", "Stuff"],
+  isAdmin: true
 };
 
 
@@ -58,6 +60,7 @@ module.exports = {
     // Function to add events to the database
     addEventsToDatabase : async () => {
         await addSampleUserToDatabase(sampleUser_1);
+        await addSampleUserToDatabase(sampleUser_2);
         const sampleUser = await User.findOne({ email: "john.doe@example.com" });
         const eventsToAdd = [
             {
@@ -112,6 +115,7 @@ module.exports = {
     },
     addSampleJobsToDatabase: async () => {
         await addSampleUserToDatabase(sampleUser_1);
+        await addSampleUserToDatabase(sampleUser_2);
         const jobsToAdd = [
           {
             title: "Brandeis Alumni Coordinator",

@@ -16,7 +16,8 @@ const userSchema = mongoose.Schema({
     country: { type: String }, // Country where the user is located (optional)
     zipCode: { type: Number, min: 10000, max: 99999 }, // User's ZIP code (optional, with constraints)
     bio: { type: String }, // User's biography (optional)
-    interests: [{ type: String }] // Array of user's interests (optional)
+    interests: [{ type: String }], // Array of user's interests (optional)
+    isAdmin: { type: Boolean, default: false } // Whether or not user is an admin
 });
 
 userSchema.plugin(passportLocalMongoose, {usernameField: "email"});
