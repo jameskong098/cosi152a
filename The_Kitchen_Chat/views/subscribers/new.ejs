@@ -1,0 +1,13 @@
+<form action="/subscribers/create" method="post">
+  <input type="text" name="name" placeholder="Name" />
+  <input type="text" name="email" placeholder="Email" />
+  <input type="text" name="zipCode" placeholder="Zip Code" pattern="[0-9]{5}" />
+  <input
+    type="text"
+    name="courseId"
+    value="<%= courseId%>"
+    placeholder="Course ID"
+    readonly
+  />
+  <input type="submit" name="submit" />
+</form>

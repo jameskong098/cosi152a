@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>The Kitchen</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <h1>The Kitchen</h1>
+      </div>
+      <ul class="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="courses">Courses</a></li>
+        <li><a href="contact">Contact</a></li>
+        <li><%- include('courses/_coursesModal') %></li>
+        <li><a href="/chat" class="chat-icon">@</a></li>
+      </ul>
+      <% if (loggedIn) { %> Logged in as
+      <a href="<%=`/users/${currentUser._id}`%>"><%= currentUser.fullName %></a>
+      <div
+        id="apiToken"
+        data-token="<%= currentUser.apiToken %>"
+        style="display: none"
+      ></div>
+
+      <a href="/users/logout">Log out</a>
+
+      <%} else {%>
+      <a href="/users/login">Log In</a>
+      <% } %>
+    </header>
+    <div class="flashes">
+      <% if (flashMessages) { %> <% if (flashMessages.success) { %>
+      <div class="flash success"><%= flashMessages.success %></div>
+      <% } else if (flashMessages.error) { %>
+      <div class="flash error"><%= flashMessages.error %></div>
+      <% } %> <% } %>
+    </div>
+
+    <%- body%>
+    <footer>
+      <p>The Kitchen - Copyright©2023</p>
+    </footer>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/js/kitchenApp.js"></script>
+  </body>
+</html>

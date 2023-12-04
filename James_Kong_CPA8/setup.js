@@ -2,25 +2,43 @@ const Event = require("./models/event")
 const User = require('./models/user');
 const Job = require('./models/job')
 
-// Function to add a sample user to the database
-const addSampleUserToDatabase = async () => {
-  const sampleUser = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    password: "securepassword",
-    role: "alumni",
-    graduationYear: 2020,
-    major: "Computer Science",
-    job: "Software Engineer",
-    company: "TechCo",
-    city: "San Francisco",
-    state: "CA",
-    country: "USA",
-    zipCode: 94105,
-    bio: "Passionate about technology and innovation.",
-    interests: ["Programming", "Machine Learning"],
-  };
+const sampleUser_1 = {
+  name: "John Doe",
+  email: "john.doe@example.com",
+  password: "securepassword",
+  role: "alumni",
+  graduationYear: 2020,
+  major: "Computer Science",
+  job: "Software Engineer",
+  company: "TechCo",
+  city: "San Francisco",
+  state: "CA",
+  country: "USA",
+  zipCode: 94105,
+  bio: "Passionate about technology and innovation.",
+  interests: ["Programming", "Machine Learning"],
+};
 
+const sampleUser_2 = {
+  name: "Josh Posh",
+  email: "josh_posh@example.com",
+  password: "securepassword",
+  role: "student",
+  graduationYear: 2019,
+  major: "Biology",
+  job: "Scientist",
+  company: "CCT",
+  city: "Boston",
+  state: "MA",
+  country: "USA",
+  zipCode: 21231,
+  bio: "Passionate biology",
+  interests: ["Biology", "Stuff"],
+};
+
+
+// Function to add a sample user to the database
+const addSampleUserToDatabase = async (sampleUser) => {
   try {
     // Check if the user already exists by email
     const existingUser = await User.findOne({ email: sampleUser.email });
@@ -39,7 +57,7 @@ const addSampleUserToDatabase = async () => {
 module.exports = {
     // Function to add events to the database
     addEventsToDatabase : async () => {
-        await addSampleUserToDatabase();
+        await addSampleUserToDatabase(sampleUser_1);
         const sampleUser = await User.findOne({ email: "john.doe@example.com" });
         const eventsToAdd = [
             {
@@ -93,7 +111,7 @@ module.exports = {
         }
     },
     addSampleJobsToDatabase: async () => {
-        await addSampleUserToDatabase();
+        await addSampleUserToDatabase(sampleUser_1);
         const jobsToAdd = [
           {
             title: "Brandeis Alumni Coordinator",

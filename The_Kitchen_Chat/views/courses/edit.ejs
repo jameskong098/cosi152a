@@ -1,0 +1,40 @@
+<div class="data-form">
+  <form method="POST" action="<%=`/courses/${course._id}/update?_method=PUT`%>">
+    <h2>Edit course:</h2>
+    <label for="inputTitle">Title</label>
+    <input
+      type="text"
+      name="title"
+      id="inputTitle"
+      value="<%= course.title %>"
+      placeholder="Title"
+      autofocus
+    />
+    <label for="inputDescription">Description</label>
+    <input
+      type="text"
+      name="description"
+      id="inputDescription"
+      value="<%= course.description %>"
+      placeholder="Description"
+    />
+    <label for="inputItems">Items (comma-separated):</label>
+    <input
+      type="text"
+      name="items"
+      id="inputItems"
+      value="<%= course.items %>"
+      placeholder="Item 1, Item 2, Item 3"
+    />
+    <label for="inputZipCode">Zip Code</label>
+    <input
+      type="text"
+      name="zipCode"
+      id="inputZipCode"
+      value="<%= course.zipCode %>"
+      placeholder="Zip Code"
+      required
+    />
+    <button type="submit">Update</button>
+  </form>
+</div>
