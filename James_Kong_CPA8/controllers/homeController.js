@@ -7,6 +7,10 @@ module.exports = {
         // Show Contact page view
         res.render("contact");
     },
+    chat: (req, res) => {
+        // Show chat page
+        res.render("chat");
+    },
     respondWithIndex: (req, res) => {
         // Show home page view
         res.render('index');

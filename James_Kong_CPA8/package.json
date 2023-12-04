@@ -1,21 +1,20 @@
 {
   "name": "brandeis_saa",
   "version": "1.0.0",
-  "description": "CPA8 Express.js application",
+  "description": "CPA8 Express.js application with chat functionality and other new features",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "keywords": [
-    "CPA7",
-    "Security",
+    "CPA8",
+    "Chat",
     "Authentication",
-    "Hashing"
+    "API"
   ],
   "author": "James Kong",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "ejs": "^3.1.9",
@@ -28,6 +27,8 @@
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.3",
     "passport": "^0.6.0",
-    "passport-local-mongoose": "^8.0.0"
+    "passport-local-mongoose": "^8.0.0",
+    "rand-token": "^1.0.1",
+    "socket.io": "^4.7.2"
   }
 }

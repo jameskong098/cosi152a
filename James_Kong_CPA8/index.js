@@ -23,7 +23,8 @@ const router = express.Router();
 
 // Set-up port and connection
 app.set("port", process.env.PORT || 8080);
-app.listen(app.get("port"), async () => {
+
+const server = app.listen(app.get("port"), async () => {
   await setup.addEventsToDatabase();
   await setup.addSampleJobsToDatabase();
   console.log(`Server running at http://localhost:${app.get("port")}`);
@@ -80,6 +81,9 @@ router.use((req, res, next) => {
   next();
 });
 
+const io = require("socket.io")(server);
+require("./controllers/chatController")(io);
+
 // Set up all routes
 
 app.use("/", router);
@@ -93,6 +97,7 @@ router.get("/about", homeController.respondWithAbout); // Render the about page
 
 router.get("/contact", homeController.respondWithContact); // Render the contact page
 
+router.get("/chat", homeController.chat);
 
 // Event Routes
 router.get("/events", eventController.getEvents, homeController.redirectView); // Render events page
