@@ -17,6 +17,7 @@
             <a class="nav_items" href="/jobs">Jobs</a>
             <a class="nav_items" href="/events">Events</a>
             <a class="nav_items" href="/contact">Contact</a>
+            <a class="nav_items chat-icon" href="/chat">Chat</a>
             <% if (!loggedIn) { %>
                 <a class="nav_items" href="/users/login">Login</a>
                 <a class="nav_items" href="/users/signup">Signup</a>
@@ -50,5 +51,9 @@
             <a href="https://www.youtube.com/c/BrandeisUniversityAlumniAssociation" class="fa fa-youtube social_button"></a>
             <a href="https://twitter.com/brandeisualumni" class="fa fa-twitter social_button"></a>
         </footer>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/js/brandeisSAA.js"></script>
     </body>
 </html>

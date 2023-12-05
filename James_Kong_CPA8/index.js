@@ -30,6 +30,9 @@ const server = app.listen(app.get("port"), async () => {
   console.log(`Server running at http://localhost:${app.get("port")}`);
 });
 
+const io = require("socket.io")(server);
+require("./controllers/chatController")(io);
+
 // Set-up MongoDB connection
 var address = process.env.DB_ADDRESS || "mongodb://127.0.0.1:27017/brandeis_saa";
 mongoose.connect(address);
@@ -80,9 +83,6 @@ router.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-
-const io = require("socket.io")(server);
-require("./controllers/chatController")(io);
 
 // Set up all routes
 

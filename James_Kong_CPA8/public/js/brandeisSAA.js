@@ -50,6 +50,7 @@ $("#chatForm").submit(() => {
   let text = $("#chat-input").val(),
     userId = $("#chat-user-id").val(),
     userName = $("#chat-user-name").val();
+    console.log("brandeisSAA: " + userName)
   socket.emit("message", { content: text, userId: userId, userName: userName });
 
   $("#chat-input").val("");
@@ -70,7 +71,7 @@ socket.on("load all messages", (data) => {
 
 socket.on("user disconnected", () => {
   displayMessage({
-    userName: "Notice",
+    name: "Notice",
     content: "user left the chat",
   });
 });

@@ -308,6 +308,16 @@ background-color: #f44336; /* Red */
     text-align: center;
 }
 
+#chatLogin {
+    font-size: larger;
+    padding: 34%;
+    text-align: center;
+}
+
+.chatStyle {
+    padding: 10%;
+}
+
 @media screen and (max-width: 1199px) {
     #header_text {
         font-size: 0%;
