@@ -44,12 +44,15 @@
     <div>
       <a href="<%=`/events/${event._id}/edit`%>">Edit Event Details</a>
     </div>
-    <div>
-      <a
-        href="<%= `/events/${event._id}/delete?_method=DELETE` %>"
-        onclick="return confirm('Are you sure you want to delete this record?')"
-        >Delete</a
-      >
-    </div>
-  </div>
+    <% if (currentUser) { %>
+      <% if (currentUser.isAdmin) { %>
+        <div>
+          <a
+            href="<%= `/events/${event._id}/delete?_method=DELETE` %>"
+            onclick="return confirm('Are you sure you want to delete this record?')"
+            >Delete</a
+          >
+        </div>
+      <% } } %>
+</div>
   

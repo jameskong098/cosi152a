@@ -52,11 +52,14 @@
   <div>
     <a href="<%=`/jobs/${job._id}/edit`%>">Edit Job Details</a>
   </div>
-  <div>
-    <a
-      href="<%= `/jobs/${job._id}/delete?_method=DELETE` %>"
-      onclick="return confirm('Are you sure you want to delete this record?')"
-      >Delete</a
-    >
-  </div>
+  <% if (currentUser) { %>
+    <% if (currentUser.isAdmin) { %>
+      <div>
+        <a
+          href="<%= `/jobs/${job._id}/delete?_method=DELETE` %>"
+          onclick="return confirm('Are you sure you want to delete this record?')"
+          >Delete</a
+        >
+      </div>
+    <% } } %>
 </div>
