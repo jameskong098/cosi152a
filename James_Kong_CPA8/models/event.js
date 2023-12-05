@@ -10,6 +10,7 @@ const eventSchema = mongoose.Schema({
     isOnline: { type: Boolean, default: false }, // Indicates if the event is online, default is false
     registrationLink: { type: String }, // Link for event registration (optional)
     organizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the User model for the event organizer (required)
+    organizerName : { type: String, required: true }, // Keep track of organizer's name
     attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] // Array of User references for attendees
 });
 

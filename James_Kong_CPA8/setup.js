@@ -61,7 +61,8 @@ module.exports = {
     addEventsToDatabase : async () => {
         await addSampleUserToDatabase(sampleUser_1);
         await addSampleUserToDatabase(sampleUser_2);
-        const sampleUser = await User.findOne({ email: "john.doe@example.com" });
+        const sampleUser1 = await User.findOne({ email: "john.doe@example.com" });
+        const sampleUser2 = await User.findOne({ email: "josh_posh@example.com" });
         const eventsToAdd = [
             {
                 title: "Celebrate Brandeis at 75",
@@ -70,7 +71,8 @@ module.exports = {
                 startDate: new Date("2023-10-13"),
                 endDate: new Date("2023-10-15"),
                 registrationLink: "event_1",
-                organizer: sampleUser._id
+                organizer: sampleUser1,
+                organizerName: sampleUser1.name
             },
             {
                 title: "Wien Buffet Dinner and Drinks",
@@ -79,7 +81,8 @@ module.exports = {
                 startDate: new Date("2023-10-13"),
                 endDate: new Date("2023-10-13"),
                 registrationLink: "event_2",
-                organizer: sampleUser._id
+                organizer: sampleUser2,
+                organizerName: sampleUser2.name
             },
             {
                 title: "Brandeis International Business School NYC Networking",
@@ -88,7 +91,8 @@ module.exports = {
                 startDate: new Date("2023-10-18"),
                 endDate: new Date("2023-10-20"),
                 registrationLink: "event_3",
-                organizer: sampleUser._id
+                organizer: sampleUser1,
+                organizerName: sampleUser1.name
             },
         ];
     
@@ -116,6 +120,8 @@ module.exports = {
     addSampleJobsToDatabase: async () => {
         await addSampleUserToDatabase(sampleUser_1);
         await addSampleUserToDatabase(sampleUser_2);
+        const sampleUser1 = await User.findOne({ email: "john.doe@example.com" });
+        const sampleUser2 = await User.findOne({ email: "josh_posh@example.com" });
         const jobsToAdd = [
           {
             title: "Brandeis Alumni Coordinator",
@@ -127,6 +133,8 @@ module.exports = {
             contactEmail: "jobs@brandeis.edu",
             contactPhone: "555-1234",
             deadlineDate: new Date("2023-11-01"),
+            organizer: sampleUser1,
+            organizerName: sampleUser1.name
           },
           {
             title: "Brandeis Recruiter",
@@ -138,6 +146,8 @@ module.exports = {
             contactEmail: "jobs@brandeis.edu",
             contactPhone: "555-5678",
             deadlineDate: new Date("2023-10-15"),
+            organizer: sampleUser2,
+            organizerName: sampleUser2.name
           },
           {
             title: "Brandeis International Ambassador At Copenhagen",
@@ -149,6 +159,8 @@ module.exports = {
             contactEmail: "jobs@brandeis.edu",
             contactPhone: "555-9876",
             deadlineDate: new Date("2023-09-30"),
+            organizer: sampleUser1,
+            organizerName: sampleUser1.name
           },
         ];
       

@@ -1,4 +1,5 @@
 const Event = require("../models/event");
+const User = require("../models/user");
 
 const getEventParams = (body) => {
   // Extract info from form and set to object fields
@@ -47,6 +48,7 @@ module.exports = {
     // Get input info from create page and add to database
     let eventParams = getEventParams(req.body);
     eventParams.organizer = res.locals.currentUser._id
+    eventParams.organizerName = res.locals.currentUser.name
     Event.create(eventParams)
       .then((event) => {
         req.flash(

@@ -55,7 +55,7 @@ module.exports = {
     // Get input info from create page and add to database
     let jobParams = getJobParams(req.body);
     jobParams.organizer = res.locals.currentUser._id;
-
+    jobParams.organizerName = res.locals.currentUser.name
     Job.create(jobParams)
       .then((job) => {
         req.flash("success", `${job.title} was created successfully!`);

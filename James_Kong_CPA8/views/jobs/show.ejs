@@ -49,17 +49,18 @@
   <div>
     <a href="/jobs">Back to All Jobs</a>
   </div>
-  <div>
-    <a href="<%=`/jobs/${job._id}/edit`%>">Edit Job Details</a>
-  </div>
   <% if (currentUser) { %>
-    <% if (currentUser.isAdmin) { %>
+      <% if (currentUser.isAdmin || String(currentUser._id) == String(job.organizer)) { %>
       <div>
-        <a
-          href="<%= `/jobs/${job._id}/delete?_method=DELETE` %>"
-          onclick="return confirm('Are you sure you want to delete this record?')"
-          >Delete</a
-        >
+        <a href="<%=`/jobs/${job._id}/edit`%>">Edit Job Details</a>
       </div>
+    <%} if (currentUser.isAdmin) { %>
+        <div>
+          <a
+            href="<%= `/jobs/${job._id}/delete?_method=DELETE` %>"
+            onclick="return confirm('Are you sure you want to delete this record?')"
+            >Delete</a
+          >
+        </div>
     <% } } %>
 </div>

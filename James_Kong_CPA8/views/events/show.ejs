@@ -31,7 +31,7 @@
       </tr>
       <tr>
         <th>Event Organizer</th>
-        <td><%= event.organizer %></td>
+        <td><%= event.organizerName %></td>
       </tr>
       <tr>
         <th>Attendees</th>
@@ -41,11 +41,12 @@
     <div>
       <a href="/events">Back to All Events</a>
     </div>
-    <div>
-      <a href="<%=`/events/${event._id}/edit`%>">Edit Event Details</a>
-    </div>
     <% if (currentUser) { %>
-      <% if (currentUser.isAdmin) { %>
+      <% if (currentUser.isAdmin || String(currentUser._id) == String(event.organizer)) { %>
+        <div>
+          <a href="<%=`/events/${event._id}/edit`%>">Edit Event Details</a>
+        </div>
+    <%} if (currentUser.isAdmin) { %>
         <div>
           <a
             href="<%= `/events/${event._id}/delete?_method=DELETE` %>"
@@ -53,6 +54,6 @@
             >Delete</a
           >
         </div>
-      <% } } %>
+    <% } } %>
 </div>
   
