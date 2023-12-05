@@ -142,6 +142,9 @@ module.exports = {
         // Update the applicants field
         job.applicants.push(res.locals.currentUser._id);
 
+        // Update Applicant Names 
+        job.applicantsNames.push(res.locals.currentUser.name);
+        
         // Save the updated job
         await job.save();
 

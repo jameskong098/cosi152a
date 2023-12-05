@@ -138,6 +138,9 @@ module.exports = {
     } else {
         // Update the attendees field
         event.attendees.push(res.locals.currentUser._id);
+
+        //Update Applicant Names
+        event.attendeesNames.push(res.locals.currentUser.name)
         
         // Save the updated event
         await event.save();

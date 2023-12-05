@@ -15,7 +15,8 @@ const jobSchema = mongoose.Schema({
     isActive: { type: Boolean, default: true }, // Indicates if the job is currently active, default is true
     organizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the User model for the job organizer (required)
     organizerName : { type: String, required: true }, // Keep track of organizer's name
-    applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] // Array of User references for job applicants
+    applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Array of User references for job applicants
+    applicantsNames: [{ type: String, required: true }]
 });
 
 // Define a method to get information about the job
