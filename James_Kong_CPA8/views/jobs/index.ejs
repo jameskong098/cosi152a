@@ -3,10 +3,10 @@
     <section class="main_content">
       <article class="main_text">
         <h2 id="job_op">Job Listings</h2>
-        <a class="add" href="<%=`/jobs/create`%>">Add Job</a>
-        <ul>
-          <% jobs.forEach(job => { %>
-            <li>
+        <% if (currentUser) { %>
+          <a class="add" href="<%=`/jobs/create`%>">Add Job</a>
+          <% } jobs.forEach(job => { %>
+            <div>
               <h3><%= job.title %></h3>
               <p>Description: <%= job.description %></p>
               <p>Company: <%= job.company %></p>
@@ -20,9 +20,8 @@
                 <button type="submit">Apply Now</button>
               </form>
               <a href="<%=`/jobs/${job._id}`%>">View Details</a>
-            </li>
+            </div><br/>
           <% }); %>
-        </ul>
       </article>
     </section>
   </body>

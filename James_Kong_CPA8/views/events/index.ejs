@@ -3,10 +3,10 @@
     <section class="main_content">
       <article class="main_text">
         <h2 id="job_op">Event Listings</h2>
-        <a class="add" href="<%=`/events/create`%>">Add Event</a>
-        <ul>
-          <% events.forEach(event => { %>
-            <li>
+        <% if (currentUser) { %>
+          <a class="add" href="<%=`/events/create`%>">Add Event</a>
+          <% } events.forEach(event => { %>
+            <div>
               <h3><%= event.title %></h3>
               <p>Description: <%= event.description %></p>
               <p>Location: <%= event.location %></p>
@@ -16,9 +16,8 @@
                 <button type="submit">Register Now</button>
               </form>
               <a href="<%=`/events/${event._id}`%>">View Details</a>
-            </li>
+            </div><br/>
           <% }); %>
-        </ul>
       </article>
     </section>
   </body>
