@@ -41,8 +41,8 @@ nav a {
     align-items: center;
     justify-content: center;
     padding: 15px;
-    margin-right: 5%;
-    margin-left: 5%;
+    margin-right: 2%;
+    margin-left: 2%;
 }
 
 
@@ -318,7 +318,56 @@ background-color: #f44336; /* Red */
     padding: 10%;
 }
 
+#default-menu {
+    display: block;
+}
+
+.menu-icon {
+    display: none;
+}
+
+#alumni-2-center {
+    display: flex;
+    justify-content: center;
+}
+
+#alumni-2 {
+    width: 80%
+}
+
+#menuBack {
+    display: flex;
+    justify-content: center;
+    background-color: #003478;
+}
+
 @media screen and (max-width: 1199px) {
+    #default-menu {
+        display: none;
+        padding: 0%;
+    }
+
+    .nav_items {
+        display: none;
+    }
+
+    .menu-icon {
+        background-color:  #003478;
+        padding: 15px;
+        display: block;
+        cursor: pointer;
+    }
+
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav a {
+        display: block;
+        margin: 10px;
+    }
+    
     #header_text {
         font-size: 0%;
     }
@@ -339,6 +388,10 @@ background-color: #f44336; /* Red */
 }
 
 @media screen and (min-width: 1200px) {
+    #default-menu {
+        display: block;
+    }
+    
     #beginning {
         background-size: 100%; 
     }

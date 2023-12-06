@@ -11,7 +11,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <nav>
+        <div id="menuBack">
+            <image class="menu-icon" src="/images/hamburger-menu-icon.png"></image>
+        </div>
+        <nav id="#default-menu">
             <a class="nav_items" href="/index">Home</a>
             <a class="nav_items" href="/about">About</a>
             <a class="nav_items" href="/jobs">Jobs</a>
@@ -55,5 +58,24 @@
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="/js/brandeisSAA.js"></script>
+        <!-- Click Hamburger menu Logic -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const menuIcon = document.querySelector('.menu-icon');
+                const navLinks = document.querySelectorAll('.nav_items');
+
+                menuIcon.addEventListener('click', function () {
+                    navLinks.forEach(link => link.style.display === 'block' ? link.style.display = 'none' : link.style.display = 'block');
+                });
+                window.addEventListener('resize', function () {
+                    const screenWidth = window.innerWidth;
+
+                    if (screenWidth < 1199) {
+                        navLinks.forEach(link => link.style.display = 'block');
+                    }
+            });
+});
+
+        </script>
     </body>
 </html>
