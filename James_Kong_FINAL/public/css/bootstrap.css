@@ -43,6 +43,7 @@
   overflow-y: auto;
 }
 .modal-dialog {
+  background-color: #003478;
   position: relative;
   width: auto;
   margin: 10px;
@@ -77,6 +78,7 @@
   opacity: 0.5;
 }
 .modal-header {
+  background-color: #003478;
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -84,14 +86,19 @@
   margin-top: -2px;
 }
 .modal-title {
+  color: white;
   margin: 0;
   line-height: 1.42857143;
 }
 .modal-body {
+  background-color: #003478;
+  color: white;
   position: relative;
   padding: 40px;
 }
 .modal-footer {
+  color: white;
+  background-color: #003478;
   padding: 15px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
