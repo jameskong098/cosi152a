@@ -1,35 +1,38 @@
 $(document).ready(() => {
   $("#modal-button").click(() => {
     let apiToken = $("#apiToken").data("token");
-
-    $(".modal-body").html("");
-    $.get(`/api/courses?apiToken=${apiToken}`, (results = {}) => {
-      let data = results.data;
-      if (!data || !data.courses) return;
-      data.courses.forEach((course) => {
+    if (!apiToken) {
+      $(".modal-body").html("<p>Please log in to view and join events!</p>");
+    }
+    else {
+      $(".modal-body").html("");
+    }
+    $.get(`/api/events?apiToken=${apiToken}`, (data = {}) => {
+      if (!data || !data.events) return;
+      data.events.forEach((event) => {
         $(".modal-body").append(
           `<div>
-  <span class="course-title">
-  ${course.title}
-  </span>
-  <div class='course-description'>
-  ${course.description}
-  </div>
-  <button class='${course.joined ? "joined-button" : "join-button"}' data-id="${
-            course._id
-          }">${course.joined ? "Joined" : "Join"}</button>
+            <span class="course-title">
+              ${event.title}
+            </span>
+            <div class='course-description'>
+              ${event.description}
+          </div>
+          <button class='${event.joined ? "joined-button" : "join-button"}' data-id="${event._id
+            }">${event.joined ? "Joined" : "Join"}
+          </button>
       </div>`
         );
       });
     }).then(() => {
       $(".join-button").click((event) => {
         let $button = $(event.target),
-          courseId = $button.data("id");
+          eventId = $button.data("id");
         $.get(
-          `/api/courses/${courseId}/join?apiToken=${apiToken}`,
+          `/api/events/${eventId}/join?apiToken=${apiToken}`,
           (results = {}) => {
-            let data = results.data;
-            if (data && data.success) {
+            let data = results.join_status
+            if (data) {
               $button
                 .text("Joined")
                 .addClass("joined-button")

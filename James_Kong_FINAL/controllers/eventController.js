@@ -152,9 +152,16 @@ module.exports = {
   attend: async (req, res, next) => {
     // If user is not logged in and is attending then use req.session.originalObjectID after logging in otherwise if logged in
     // use req.body.event_id
-    const event_id = !req.session.originalObjectID ? req.body.object_id : req.session.originalObjectID
+    let event_id = !req.session.originalObjectID ? req.body.object_id : req.session.originalObjectID
+    let check_modal = false
     req.session.originalObjectID = undefined
-    
+
+    // For event modal, set value from parameter
+    if (!event_id) {
+      event_id = req.params.id
+      check_modal = true
+    }
+
     // Find the event by id
     const event = await Event.findById(event_id);
     if (!event) {
@@ -166,6 +173,13 @@ module.exports = {
     // Check if the user is already attending
     if (event.attendees.includes(res.locals.currentUser._id)) {
       req.flash("error", `You have already registered for this event!`);
+      if (check_modal) {
+        res.json({
+          join_status: false
+        });
+        next();
+        return
+      }
       res.redirect("/events")
     } else {
         // Update the attendees field
@@ -179,6 +193,14 @@ module.exports = {
 
         // Respond with success message or other relevant information
         req.flash("success", `${res.locals.currentUser.name} has successfully registered for the event!`);
+        
+        if (check_modal) {
+          res.json({
+            join_status: true
+          });
+          next();
+          return
+        }
         res.redirect("/events")
     }
   },

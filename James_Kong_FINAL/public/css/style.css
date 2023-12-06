@@ -360,7 +360,7 @@ background-color: #f44336; /* Red */
 
     nav {
         flex-direction: column;
-        text-align: center;
+        display: flex;
     }
 
     nav a {

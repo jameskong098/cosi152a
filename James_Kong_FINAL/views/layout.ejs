@@ -3,6 +3,7 @@
         <title>Brandeis Alumni Association</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
         <link rel="icon" type="images/x-icon" href="/images/favicon-16x16.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta name="author" content="James Kong">
@@ -19,6 +20,7 @@
             <a class="nav_items" href="/about">About</a>
             <a class="nav_items" href="/jobs">Jobs</a>
             <a class="nav_items" href="/events">Events</a>
+            <%- include('events/_eventsModal') %>
             <a class="nav_items" href="/contact">Contact</a>
             <a class="nav_items chat-icon" href="/chat">Chat</a>
             <% if (!loggedIn) { %>
@@ -26,6 +28,11 @@
                 <a class="nav_items" href="/users/signup">Signup</a>
             <% } else { %>
                 <a class="nav_items" href="<%=`/users/${currentUser._id}`%>">Profile</a>
+                <div
+                    id="apiToken"
+                    data-token="<%= currentUser.apiToken %>"
+                    style="display: none"
+                ></div>
                 <a class="nav_items" href="/users/logout">Logout</a>
             <% } %>
         </nav>
@@ -73,9 +80,8 @@
                     if (screenWidth < 1199) {
                         navLinks.forEach(link => link.style.display = 'block');
                     }
+                });
             });
-});
-
         </script>
     </body>
 </html>
