@@ -1,5 +1,5 @@
 const Event = require("../models/event");
-const User = require("../models/user");
+const httpStatus = require("http-status-codes");
 
 const getEventParams = (body) => {
   // Extract info from form and set to object fields
@@ -15,6 +15,38 @@ const getEventParams = (body) => {
 };
 
 module.exports = {
+  index: (req, res, next) => {
+    Event.find()
+      .then((events) => {
+        res.locals.events = events;
+        next();
+      })
+      .catch((error) => {
+        console.log(`Error fetching events: ${error.message}`);
+        next(error);
+      });
+  },
+  respondJSON: (req, res) => {
+    res.json({
+      status: httpStatus.OK,
+      events: res.locals.events,
+    });
+  },
+  errorJSON: (error, req, res, next) => {
+    let errorObject;
+    if (error) {
+      errorObject = {
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        message: error.message,
+      };
+    } else {
+      errorObject = {
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        message: "Unknown Error.",
+      };
+    }
+    res.json(errorObject);
+  },
   getEvents: async (req, res, next) => {
     // Retrieve all events from the database
     const events = await Event.find();

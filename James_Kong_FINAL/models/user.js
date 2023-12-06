@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose"); 
+const randToken = require("rand-token");
 
 // Define the schema for the User model
 const userSchema = mongoose.Schema({
@@ -17,11 +18,22 @@ const userSchema = mongoose.Schema({
     zipCode: { type: Number, min: 10000, max: 99999 }, // User's ZIP code (optional, with constraints)
     bio: { type: String }, // User's biography (optional)
     interests: [{ type: String }], // Array of user's interests (optional)
-    isAdmin: { type: Boolean, default: false } // Whether or not user is an admin
+    isAdmin: { type: Boolean, default: false }, // Whether or not user is an admin
+    apiToken: { type: String } // Unique API Token fpr user for API calls
 });
 
 userSchema.plugin(passportLocalMongoose, {usernameField: "email"});
 
+userSchema.pre("save", function (next) {
+    let user = this;
+    if (!user.apiToken) {
+      user.apiToken = randToken.generate(16);
+      next();
+    } else {
+      next();
+    }
+  });
+  
 // Define a method to get basic information about the user
 userSchema.methods.getInfo = function () {
     return `Name: ${this.name} Email: ${this.email} Zip Code: ${this.zipCode}`;
