@@ -133,13 +133,16 @@ module.exports = {
     // Show view for login page
     res.render("users/login");
   },
-  authenticate: 
+  authenticate: (req, res, next) => {
     passport.authenticate("local", {
       failureRedirect: "/users/login",
-      successFlash: "Welcome!",
-      failureFlash: "Your account or password is incorrect. Please try again or contact your system administrator!",
-      successRedirect: "/"
-    }),
+      failureFlash: "Your account or password is incorrect. Please try again or contact your system administrator.",
+    })(req, res, () => {
+      // Flash a success message after successful authentication
+      req.flash("success", "Welcome! You are logged in!");
+      res.redirect("/");
+    });
+  },
   logout: (req, res, next) => {
     req.logout(function (err) {
       if (err) {
